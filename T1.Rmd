@@ -17,7 +17,6 @@ library(ggplot2)
     axis.title.y=element_text(size=18))
 library(latex2exp) # For displaying equations
 library(lubridate) # For date format
-
 ```
 
 
@@ -122,8 +121,8 @@ print(dades_mundials_quinzenes[ , c('data', 'cases', 'log10(cases)', 'cum. cases
 ```
 
 
-# Definició d'exponencial
 
+# Definició d'exponencial
 
 
 ```{r}
