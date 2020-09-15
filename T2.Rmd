@@ -17,9 +17,10 @@ library(ggplot2)
     axis.title.y=element_text(size=18))
 library(latex2exp) # For displaying equations
 library(lubridate) # For date format
+library(xtable)   # For exporting tables as latex
 ```
 
-## Exercici 1
+## Exercicis 1-2
 
 ```{r}
 x_val = -1:5
@@ -41,6 +42,7 @@ ggplot(df, aes(x, y)) +
     scale_x_continuous(limits=c(-1, 5)) +
     labs(x="Eix x", y="Eix y") +
     geom_point()
+print(df)
 ```
 
 
@@ -66,7 +68,15 @@ ggplot(df, aes(x, y)) +
     scale_x_continuous(limits=c(-1, 5)) +
     labs(x="Eix x", y="Eix y") +
     geom_line() + geom_point()
+print(df)
 ```
+
+
+
+
+
+
+
 
 
 ## Exemples: dependències lineals/exp/potencials en gràfiques lineals/semi-log/log
@@ -88,5 +98,85 @@ ggplot(data.frame(x=0), aes(x)) +
     stat_function(fun = function(x) 0.1 * 4^x, geom="line") +
     annotate(geom="text", x=3, y=1e4, label=unname(TeX("$0.1 \\cdot 4^x$")), size=12, color="#CC0000") + 
     theme(axis.title.x=element_blank(), axis.title.y=element_blank())
+```
+
+## Def gràfica semi-log
+
+```{r}
+dades = read.csv('dades/coronavirus_9sept.csv')
+dades_mundials = dades[, c('day', 'month', 'year', 'cases')]
+dades_mundials = aggregate(cases ~ year + month + day, data=dades_mundials, FUN=sum)
+dades_mundials = dades_mundials[order(dades_mundials$year, dades_mundials$month, dades_mundials$day), ]
+dades_mundials[, 'cum. cases'] = cumsum(dades_mundials[, 'cases'])
+dades_mundials['data'] = make_date(dades_mundials$year, dades_mundials$month, dades_mundials$day)
+
+ggplot(dades_mundials[-1:-17, ], aes(x=data)) +
+    scale_y_continuous(trans='log10', labels=function(n) unname(TeX(paste("$10^", log10(n), "$")))) +
+    geom_line(aes(y=cases)) + 
+    labs(y=unname(TeX("$y = $Casos nous"))) +
+    theme(axis.title.x=element_blank())
+
+ggplot(dades_mundials[-1:-17, ], aes(x=data)) +
+    scale_y_continuous(trans='log10', labels=function(n) sprintf('%d', log10(n))) +
+    geom_line(aes(y=cases)) + 
+    labs(y=unname(TeX("$Y = \\log_{10}$(Casos nous)"))) +
+    theme(axis.title.x=element_blank())
+```
+
+
+
+## Exemple dibuixar gràfica semi-log
+
+Gràfiques per mostrar fer-ho a mà:
+
+```{r}
+f = function(x) 2 * 4.5^x
+valors_x = seq(0, 10, 2)
+df = data.frame(x=valors_x, y=f(valors_x), Y=log10(f(valors_x)))
+
+# Export datapoints as Latex table
+xtable(df)
+
+# Print datapoints Y(x)
+ggplot(df, aes(x, y)) +
+    scale_y_continuous(trans='log10', labels=function(n) sprintf('%d', log10(n))) +
+    labs(y=unname(TeX("$Y = \\log(y)$"))) +
+    geom_point()
+
+# Add line
+ggplot(df, aes(x, y)) +
+    scale_y_continuous(trans='log10', labels=function(n) sprintf('%d', log10(n))) +
+    labs(y=unname(TeX("$Y = \\log(y)$"))) +
+    geom_point() + geom_line()
+
+# Replace ticks
+ggplot(df, aes(x, y)) +
+    scale_y_continuous(trans='log10', labels=function(n) unname(TeX(paste("$10^", log10(n), "$")))) +
+    labs(y=unname(TeX("$y$"))) +
+    geom_point() + geom_line()
+```
+
+
+Fer-ho amb R:
+```{r}
+# Opció 1
+x = 0:10
+y = 2 * 4.5^x
+Y = log10(y)
+plot(x, Y, type="l")
+
+# Opció 2
+x = 0:10
+y = 2 * 4.5^x
+plot(x, y, type="l", log="y")
+
+# Opció 3
+df = data.frame(
+    x=0:10, 
+    y=2 * 4.5^(0:10))
+ggplot(df, aes(x, y)) +
+    scale_y_continuous(trans='log10') +
+    labs(x="Eix x", y="Eix y") +
+    geom_line()
 ```
 
