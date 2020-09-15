@@ -1,0 +1,92 @@
+---
+title: "T2"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(ggplot2)
+  update_geom_defaults("line", list(size=1.5, color="#CC0000"))
+  update_geom_defaults("point", list(size=3, color="#CC0000"))
+  theme_update(
+    line=element_line(size=1),
+    plot.title=element_text(size=20, face="bold", hjust=0.5), 
+    axis.text.x=element_text(size=14), 
+    axis.text.y=element_text(size=14),
+    axis.title.x=element_text(size=18),
+    axis.title.y=element_text(size=18))
+library(latex2exp) # For displaying equations
+library(lubridate) # For date format
+```
+
+## Exercici 1
+
+```{r}
+x_val = -1:5
+funcio = function(x) 10^x
+
+df = data.frame(x=x_val, y=funcio(x_val))
+ggplot(df, aes(x, y)) +
+    scale_y_continuous(trans='log10', limits=c(1, 1e4)) +
+    scale_x_continuous(limits=c(-1, 5)) +
+    labs(x="Eix x", y="Eix y") 
+```
+
+
+
+```{r}
+df = data.frame(x=x_val, y=funcio(x_val))
+ggplot(df, aes(x, y)) +
+    scale_y_continuous(trans='log10', limits=c(1, 1e4)) +
+    scale_x_continuous(limits=c(-1, 5)) +
+    labs(x="Eix x", y="Eix y") +
+    geom_point()
+```
+
+
+
+```{r}
+df = data.frame(x=x_val, y=funcio(x_val))
+ggplot(df, aes(x, y)) +
+    scale_y_continuous(trans='log10', limits=c(1, 1e4)) +
+    scale_x_continuous(limits=c(-1, 5)) +
+    labs(x="Eix x", y="Eix y") +
+    geom_line() + geom_point()
+```
+
+
+
+```{r}
+x_val = -1:5
+funcio = function(x) 0.1 * 10^x
+
+df = data.frame(x=x_val, y=funcio(x_val))
+ggplot(df, aes(x, y)) +
+    scale_y_continuous(trans='log10', limits=c(1, 1e4)) +
+    scale_x_continuous(limits=c(-1, 5)) +
+    labs(x="Eix x", y="Eix y") +
+    geom_line() + geom_point()
+```
+
+
+## Exemples: dependències lineals/exp/potencials en gràfiques lineals/semi-log/log
+
+```{r}
+ggplot(data.frame(x=0), aes(x)) +
+    scale_y_continuous(limits=c(-1, 10)) +
+    scale_x_continuous(limits=c(-1, 10)) +
+    stat_function(fun = function(x) 0.5*x+2, geom="line") +
+    annotate(geom="text", x=2, y=1, label=unname(TeX("$0.5x+2$")), size=12, color="#CC0000") + 
+    theme(axis.title.x=element_blank(), axis.title.y=element_blank())
+```
+
+
+```{r}
+ggplot(data.frame(x=0), aes(x)) +
+    scale_y_continuous(limits=c(-1, 1e5)) +
+    scale_x_continuous(limits=c(-1, 10)) +
+    stat_function(fun = function(x) 0.1 * 4^x, geom="line") +
+    annotate(geom="text", x=3, y=1e4, label=unname(TeX("$0.1 \\cdot 4^x$")), size=12, color="#CC0000") + 
+    theme(axis.title.x=element_blank(), axis.title.y=element_blank())
+```
+
