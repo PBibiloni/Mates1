@@ -45,7 +45,7 @@ log10(1e23)
 Carreguem les dades (font: European Centre for Disease Prevention and Control https://www.ecdc.europa.eu).
 
 ```{r}
-dades = read.csv('coronavirus_9sept.csv')
+dades = read.csv('dades/coronavirus_9sept.csv')
 dades_mundials = dades[, c('day', 'month', 'year', 'cases')]
 dades_mundials = aggregate(cases ~ year + month + day, data=dades_mundials, FUN=sum)
 dades_mundials = dades_mundials[order(dades_mundials$year, dades_mundials$month, dades_mundials$day), ]
