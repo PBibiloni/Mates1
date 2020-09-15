@@ -17,6 +17,7 @@ library(ggplot2)
     axis.title.y=element_text(size=18))
 library(latex2exp) # For displaying equations
 library(lubridate) # For date format
+library(xtable)   # For exporting tables as latex
 ```
 
 
