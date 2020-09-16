@@ -1,5 +1,5 @@
 ---
-title: "T2"
+title: "T2 - Tot"
 output: html_document
 ---
 
@@ -74,6 +74,26 @@ print(df)
 
 
 
+```{r}
+df = data.frame(
+  temps=c(10, 20, 30, 40, 50),
+  concentracio=c(44, 36, 32.5, 28, 26.3)
+)
+xtable(df)
+ggplot(df, aes(x=temps, y=concentracio)) +
+    scale_y_continuous(trans='log10') +
+    labs(x='Temps [min]', y='Concentració [mg/100 ml]') +
+    geom_point() +
+    geom_smooth(method="lm", formula= (y ~ exp(x)), se=FALSE)
+
+
+plot(df$temps, df$concentracio)         # Fer gràfica dels punts 
+
+model = lm(concentracio~temps, data=df) # Calcular model lineal
+abline(model)                           # Dibuixar recta
+
+```
+
 
 
 
@@ -124,6 +144,24 @@ ggplot(dades_mundials[-1:-17, ], aes(x=data)) +
 ```
 
 
+## Aplicacio: dibuixar gràfica lineal amb R
+
+
+```{r}
+# Opció 1
+x = 0:10
+y = -3 * x + 40
+plot(x, y, type="l")
+
+# Opció 2
+df = data.frame(
+  x=0:10, 
+  y=-3*(0:10) + 40)
+ggplot(df, aes(x, y)) +
+    labs(x="Eix x", y="Eix y") +
+    geom_line()
+```
+
 
 ## Exemple dibuixar gràfica semi-log
 
@@ -171,9 +209,7 @@ y = 2 * 4.5^x
 plot(x, y, type="l", log="y")
 
 # Opció 3
-df = data.frame(
-    x=0:10, 
-    y=2 * 4.5^(0:10))
+df = data.frame(x=0:10, y=2*4.5^(0:10))
 ggplot(df, aes(x, y)) +
     scale_y_continuous(trans='log10') +
     labs(x="Eix x", y="Eix y") +
