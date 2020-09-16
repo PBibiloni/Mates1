@@ -369,20 +369,23 @@ summary {
 <div id="exercici-1-càlcul-logaritmes-i-exponencials" class="section level2">
 <h2>Exercici 1: Càlcul logaritmes i exponencials</h2>
 <p>Podem calcular el logaritme de diverses maneres:</p>
-<pre class="r"><code>log10(494300000000000000000000)</code></pre>
-<pre><code>## [1] 23.69399</code></pre>
-<pre class="r"><code>log10(4.943 * 10^23)</code></pre>
-<pre><code>## [1] 23.69399</code></pre>
-<pre class="r"><code>log10(4.943e23)</code></pre>
-<pre><code>## [1] 23.69399</code></pre>
+<pre class="r"><code>alternativa_1 = log10(494300000000000000000000)
+alternativa_2 = log10(4.943 * 10^23)
+alternativa_3 = log10(4.943e23)
+# Les agrupam i les mostram per pantalla:
+data.frame(alternativa_1, alternativa_2, alternativa_3)</code></pre>
+<pre><code>##   alternativa_1 alternativa_2 alternativa_3
+## 1      23.69399      23.69399      23.69399</code></pre>
 <p>Calculem ara el logaritme de la mantissa:</p>
-<pre class="r"><code>log10(4.943)</code></pre>
+<pre class="r"><code>log10(4.943)  # Si no guardam el valor a una variable, ho mostra per pantalla</code></pre>
 <pre><code>## [1] 0.6939906</code></pre>
-<p>I també el logaritme de la part exponencial:</p>
-<pre class="r"><code>log10(10^23)</code></pre>
-<pre><code>## [1] 23</code></pre>
-<pre class="r"><code>log10(1e23)</code></pre>
-<pre><code>## [1] 23</code></pre>
+<p>I també el logaritme de la part exponencial de diverses maneres:</p>
+<pre class="r"><code>alternativa_1 = log10(10^23)
+alternativa_2 = log10(1e23)
+# Les agrupam i les mostram per pantalla:
+data.frame(alternativa_1, alternativa_2)</code></pre>
+<pre><code>##   alternativa_1 alternativa_2
+## 1            23            23</code></pre>
 </div>
 <div id="exercici-2-visualitzant-exponencials" class="section level2">
 <h2>Exercici 2: Visualitzant exponencials</h2>
