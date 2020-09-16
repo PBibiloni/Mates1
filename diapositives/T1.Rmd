@@ -1,43 +1,13 @@
 ---
-title: "T1"
+title: "T1 - Generar gràfiques diapositives"
 output: html_document
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-library(ggplot2)
-  update_geom_defaults("line", list(size=1.5, color="#CC0000"))
-  update_geom_defaults("point", list(size=3, color="#CC0000"))
-  theme_update(
-    line=element_line(size=1),
-    plot.title=element_text(size=20, face="bold", hjust=0.5), 
-    axis.text.x=element_text(size=14), 
-    axis.text.y=element_text(size=14),
-    axis.title.x=element_text(size=18),
-    axis.title.y=element_text(size=18))
-library(latex2exp) # For displaying equations
-library(lubridate) # For date format
-library(xtable)   # For exporting tables as latex
+source('utils.R')
+carrega_llibreries()
 ```
-
-
-## Càlcul logaritmes i exponencials
-
-```{r}
-log10(494300000000000000000000)
-log10(4.943 * 10^23)
-log10(4.943e23)
-```
-
-```{r}
-log10(4.943)
-```
-
-```{r}
-log10(10^23)
-log10(1e23)
-```
-
 
 
 ## Coronavirus
@@ -45,7 +15,7 @@ log10(1e23)
 Carreguem les dades (font: European Centre for Disease Prevention and Control https://www.ecdc.europa.eu).
 
 ```{r}
-dades = read.csv('dades/coronavirus_9sept.csv')
+dades = read.csv(url('https://raw.githubusercontent.com/PBibiloni/Mates1/master/dades/coronavirus_9sept.csv'))
 dades_mundials = dades[, c('day', 'month', 'year', 'cases')]
 dades_mundials = aggregate(cases ~ year + month + day, data=dades_mundials, FUN=sum)
 dades_mundials = dades_mundials[order(dades_mundials$year, dades_mundials$month, dades_mundials$day), ]
@@ -59,54 +29,40 @@ ggplot(dades_mundials, aes(x=data)) +
         geom_line(aes(y=cases)) +
         labs(title="Sèrie mundial coronavirus", y="Casos nous") +
         theme(axis.title.x=element_blank())
-```
+guarda_ggplot(tema=1, nom='Coronavirus_serie_mundial_lineal_1.png')
 
-
-Gràfica mostrant només els primers 90 dies.
-
-```{r}
+# Gràfica mostrant només els primers 90 dies.
 ggplot(dades_mundials[1:90, ], aes(x=data)) +
         geom_line(aes(y=cases)) +
         labs(title="Sèrie mundial coronavirus", y="Casos nous") +
         theme(axis.title.x=element_blank())
-```
+guarda_ggplot(tema=1, nom='Coronavirus_serie_mundial_lineal_2.png')
 
-
-
-
-
-Gràfica mostrant només els primers 60 dies.
-
-```{r}
+# Gràfica mostrant només els primers 60 dies.
 ggplot(dades_mundials[1:60, ], aes(x=data)) +
         geom_line(aes(y=cases)) +
         labs(title="Sèrie mundial coronavirus", y="Casos nous") +
         theme(axis.title.x=element_blank())
-```
+guarda_ggplot(tema=1, nom='Coronavirus_serie_mundial_lineal_3.png')
 
-
-
-Gràfica mostrant només els primers 30 dies.
-
-```{r}
+# Gràfica mostrant només els primers 30 dies.
 ggplot(dades_mundials[1:30, ], aes(x=data)) +
         geom_line(aes(y=cases)) +
         labs(title="Sèrie mundial coronavirus", y="Casos nous") +
         theme(axis.title.x=element_blank())
-```
+guarda_ggplot(tema=1, nom='Coronavirus_serie_mundial_lineal_4.png')
 
-
-Gràfica semi-log eliminant els valors que són igual a zero.
-
-```{r}
+# Gràfica semi-log eliminant els valors que són igual a zero.
 ggplot(dades_mundials[-1:-17, ], aes(x=data)) +
         scale_y_continuous(trans='log10') +
         geom_line(aes(y=cases)) + 
         labs(title="Sèrie mundial coronavirus (semilog)", y="Casos nous") +
         theme(axis.title.x=element_blank())
+guarda_ggplot(tema=1, nom='Coronavirus_serie_mundial_semilog.png')
 ```
 
-Mostrem també les dades numèriques:
+
+Exportem també les dades numèriques:
 
 ```{r}
 fileres_quinzenes = dades_mundials[, 'day'] == 1 | dades_mundials[, 'day'] == 15
@@ -114,12 +70,23 @@ dades_mundials_quinzenes = dades_mundials[fileres_quinzenes, c('data', 'cases', 
 dades_mundials_quinzenes['log10(cases)'] = log10(dades_mundials_quinzenes[, 'cases'])
 dades_mundials_quinzenes['log10(cum. cases)'] = log10(dades_mundials_quinzenes[, 'cum. cases'])
 print(dades_mundials_quinzenes[ , c('data', 'cases', 'log10(cases)')])
+xtable(dades_mundials_quinzenes[ , c('data', 'cases', 'log10(cases)')])
 ```
 
-
+ I les dades amb casos acumulats:
+ 
 ```{r}
 print(dades_mundials_quinzenes[ , c('data', 'cases', 'log10(cases)', 'cum. cases', 'log10(cum. cases)')])
+xtable(dades_mundials_quinzenes[ , c('data', 'cases', 'log10(cases)', 'cum. cases', 'log10(cum. cases)')])
 ```
+
+
+
+
+
+
+
+
 
 
 
@@ -136,26 +103,25 @@ x_lims = range(eix_x)
 df = data.frame(x=eix_x,
                 y=funcio_exponencial(eix_x))
 
+# Només punts >= 0
 ggplot(df[df$x >= 0, ], aes(x, y)) +
         geom_point() +
         scale_x_continuous(breaks=seq(x_lims[1], x_lims[2], 2), limits=x_lims) +
         scale_y_continuous(limits=c(-1, max(df$y)+1)) +
         labs(title=unname(TeX(paste("Funció exponencial $y(x) = ", base_exponencial, "^x$"))), 
              x="Eix x", y="Eix y")
-```
+guarda_ggplot(tema=1, nom='DefExponencial_1.png')
 
-
-```{r}
+# Només punts
 ggplot(df, aes(x, y)) +
         geom_point() +
         scale_x_continuous(breaks=seq(x_lims[1], x_lims[2], 2), limits=x_lims) +
         scale_y_continuous(limits=c(-1, max(df$y)+1)) +
         labs(title=unname(TeX(paste("Funció exponencial $y(x) = ", base_exponencial, "^x$"))), 
              x="Eix x", y="Eix y")
-```
+guarda_ggplot(tema=1, nom='DefExponencial_2.png')
 
-
-```{r}
+# Punts i recta
 ggplot(df, aes(x, y)) +
         geom_point() +
         scale_x_continuous(breaks=seq(x_lims[1], x_lims[2], 2), limits=x_lims) +
@@ -163,4 +129,5 @@ ggplot(df, aes(x, y)) +
         labs(title=unname(TeX(paste("Funció exponencial $y(x) = ", base_exponencial, "^x$"))), 
              x="Eix x", y="Eix y") +
         stat_function(fun = funcio_exponencial)
+guarda_ggplot(tema=1, nom='DefExponencial_3.png')
 ```

@@ -1,0 +1,110 @@
+---
+title: "T1 - Exercicis de les diapositives"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+## Exercici 1: Càlcul logaritmes i exponencials
+
+Podem calcular el logaritme de diverses maneres:
+
+```{r}
+alternativa_1 = log10(494300000000000000000000)
+alternativa_2 = log10(4.943 * 10^23)
+alternativa_3 = log10(4.943e23)
+# Les agrupam i les mostram per pantalla:
+data.frame(alternativa_1, alternativa_2, alternativa_3)
+```
+
+Calculem ara el logaritme de la mantissa:
+
+```{r}
+log10(4.943)  # Si no guardam el valor a una variable, ho mostra per pantalla
+```
+
+I també el logaritme de la part exponencial de diverses maneres:
+
+```{r}
+alternativa_1 = log10(10^23)
+alternativa_2 = log10(1e23)
+# Les agrupam i les mostram per pantalla:
+data.frame(alternativa_1, alternativa_2)
+```
+
+
+## Exercici 2: Visualitzant exponencials
+
+* Apartat a)
+
+```{r}
+x = seq(-10, 10, by=0.01)
+n = seq(-10, 10, by=1)
+plot(x, 3^x, main="3^x (exp. contínua)")
+plot(n, 3^n, main="3^n (exp. discreta)")
+```
+
+
+* Apartat b)
+
+```{r}
+x = seq(-10, 10, by=0.01)
+plot(x, 3^(-x), main="3^(-x) (exp. contínua)")
+plot(x, (1/3)^x, main="(1/3)^x (exp. contínua)")
+```
+
+
+* Apartat c)
+
+```{r}
+n = seq(-2, 10, by=1)
+plot(n, -3^n, main="-3^n (exp. discreta)", ylim=c(-6e4, 6e4))
+    axis(1, pos=0, labels=FALSE)
+plot(n, (-3)^n, main="(-3)^n (exp. discreta)", ylim=c(-6e4, 6e4))
+    axis(1, pos=0, labels=FALSE)
+```
+
+
+## Exercici 3:
+
+Apartat a) Podem comprovam i interpretar el resultat que obtenim a mà:
+
+```{r}
+x = seq(-3, 3, by=0.01)
+equacio = -32*2.7^x+200
+plot(x, equacio, type='l')
+abline(a=33, b=0, col='red') # Afegir recta y = 33 + 0*x
+```
+
+
+
+## Exercici 4:
+
+
+Apartat a) Podem comprovar i interpretar el resultat: si la igualtat és certa, ho és sempre!
+
+```{r}
+a = 2
+b = 4
+x = -0.8
+terme_esquerra = log10((a+b)^x)
+terme_dreta = x*log10(a) + x*log10(b)
+print(terme_esquerra)
+print(terme_dreta)
+```
+
+
+Apartat b) Podem comprovar i interpretar el resultat: si la igualtat és certa, ho és sempre!
+
+```{r}
+a = c(1,   2,   3,   4,   5)
+b = c(2,   4,   6,   8,  10)
+x = c(-2, -4,   1,  12,  0.1)
+terme_esquerra = log10((a*b)^x)
+terme_dreta = x*log10(a) + x*log10(b)
+data.frame(a, b, x, terme_esquerra, terme_dreta)
+```
+
