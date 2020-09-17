@@ -245,3 +245,154 @@ points(
 )
 ```
 
+
+
+
+
+
+
+
+
+
+## Exercicis 10-11
+
+* Gràfica semi-log
+
+Calculem els punts que ens demanen:
+
+```{r}
+x = 1:6
+y = 8*x^2
+kable(data.frame(x, y))
+```
+
+Mostrem els eixos:
+
+```{r}
+plot(0.1, log="y", 
+     xlim=c(1, 6), xlab="Eix x", 
+     ylim=c(2, 2^8), ylab="Eix y", yaxt="n")
+axis(side=2, at=2^c(1:8))
+```
+
+Visualitzem ara els punts en aquesta gràfica semi-log:
+
+```{r}
+plot(x, y, col="red", type='o', log="y",
+     xlim=c(1, 6), xlab="Eix x", 
+     ylim=c(2, 2^8), ylab="Eix y", yaxt="n")
+axis(side=2, at=2^c(1:8))
+```
+
+
+* Gràfica log-log
+
+De nou, mostrem els eixos:
+
+```{r}
+plot(0.1, log="xy", 
+     xlim=c(1, 6), xlab="Eix x", 
+     ylim=c(2, 2^8), ylab="Eix y", yaxt="n")
+axis(side=2, at=2^c(1:8))
+```
+
+Finalment, visualitzem els punts en la gràfica log-log:
+
+```{r}
+x = 1:6
+y = 4*x^2
+plot(x, y, col="red", type='o', log="xy",
+     xlim=c(1, 6), xlab="Eix x", 
+     ylim=c(2, 2^8), ylab="Eix y", yaxt="n")
+axis(side=2, at=2^c(1:8))
+```
+
+
+
+
+## Exemple 12
+
+Opció 1:
+
+```{r}
+x = 1:100
+y = 2 * 4.5^x
+X = log10(x)
+Y = log10(y)
+plot(X, Y, type="l")
+```
+
+Opció 2, preferida:
+
+```{r}
+x = 1:100
+y = 2 * 4.5^x
+plot(x, y, log="xy", type="l")
+```
+
+
+
+
+
+## Exemple 13
+
+
+Introduïm les dades i les mostram
+
+```{r}
+df = data.frame(
+  temps=c(10, 20, 30, 40, 50),
+  concentracio=c(44, 35.2, 29.5, 25.8, 22.3)
+)
+kable(df)
+plot(df$temps, df$concentracio)
+```
+
+Calcularem un model de regressió exponencial de la concentració en funció del temps, i mostrarem
+
+```{r}
+# Calcular model lineal de concentració en funció del temps
+model_pot = lm(
+  log10(concentracio)~log10(temps), 
+  data=df
+)
+# Mostram els coeficients del model
+summary(model_pot)
+```
+
+També podem visualitzar-ho en una gràfica semi-log:
+
+```{r}
+# Fer gràfica dels punts       
+plot(
+    x=log10(df$temps), 
+    y=log10(df$concentracio), 
+    xlab="log(Temps [min])", 
+    ylab="log(Conc. [mg/100 ml])",
+)
+# Afegir la recta del model de regressió
+abline(model_pot, col='red')
+```
+
+
+
+Finalment, vegem-ho en una gràfica lineal:
+
+```{r}
+# Calcular prediccions noves
+df_model = data.frame(temps=0:150)
+df_model$pred = 10^predict(model_pot, df_model)
+# Mostrar la corba del model de regressió
+plot(
+    x=df_model$temps, 
+    y=df_model$pred, 
+    col='red', type="l",
+    xlab="Temps [min]", 
+    ylab="Conc. [mg/100 ml]",)
+# Afegir les dades originals
+points(
+    x=df$temps, 
+    y=df$concentracio, 
+)
+```
+

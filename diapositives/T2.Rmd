@@ -95,4 +95,31 @@ ggplot(df, aes(x, y)) +
 ```
 
 
+# Def Gràfica Log-log
+
+
+```{r}
+dades = read.csv(url('https://raw.githubusercontent.com/PBibiloni/Mates1/master/dades/coronavirus_9sept.csv'))
+dades_mundials = dades[, c('day', 'month', 'year', 'cases')]
+dades_mundials = aggregate(cases ~ year + month + day, data=dades_mundials, FUN=sum)
+dades_mundials = dades_mundials[order(dades_mundials$year, dades_mundials$month, dades_mundials$day), ]
+dades_mundials[, 'cum. cases'] = cumsum(dades_mundials[, 'cases'])
+dades_mundials['data'] = make_date(dades_mundials$year, dades_mundials$month, dades_mundials$day)
+dades_mundials = dades_mundials[-1:-17, ] # Elimina els casos en que no hi havia dades
+dades_mundials['dies'] = 1:nrow(dades_mundials)
+
+ggplot(dades_mundials, aes(x=dies, y=cases)) +
+    scale_y_continuous(trans='log10', labels=function(n) sprintf('%d', n), breaks=10^(1:8)) +
+    scale_x_continuous(trans='log2', labels=function(n) sprintf('%d', n), breaks=2^(0:8)) +
+    geom_line() + 
+    labs(y=unname(TeX("$y = $Casos nous")), x=unname(TeX("$x = $Dies des de l'inici")))
+guarda_ggplot(tema=2, nom='Coronavirus_loglog_v1.png')
+
+ggplot(dades_mundials, aes(x=dies, y=cases)) +
+    scale_y_continuous(trans='log10', labels=function(n) sprintf('%d', log10(n)), breaks=10^(1:8)) +
+    scale_x_continuous(trans='log10', labels=function(n) sprintf('%d', log10(n)), breaks=10^(1:8)) +
+    geom_line(aes(y=cases)) + 
+    labs(y=unname(TeX("$Y = \\log_{10}$(Casos nous)")), x=unname(TeX("$X = \\log_{10}$(Dies des de l'inici)")))
+guarda_ggplot(tema=2, nom='Coronavirus_loglog_v2.png')
+```
 
