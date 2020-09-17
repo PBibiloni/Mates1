@@ -8,7 +8,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 
-## Exercici 1: Càlcul logaritmes i exponencials
+## Exercici 1
 
 Podem calcular el logaritme de diverses maneres:
 
@@ -36,7 +36,7 @@ data.frame(alternativa_1, alternativa_2)
 ```
 
 
-## Exercici 2: Visualitzant exponencials
+## Exercici 2
 
 * Apartat a)
 
@@ -66,9 +66,21 @@ plot(n, -3^n, main="-3^n (exp. discreta)", ylim=c(-6e4, 6e4))
 plot(n, (-3)^n, main="(-3)^n (exp. discreta)", ylim=c(-6e4, 6e4))
     axis(1, pos=0, labels=FALSE)
 ```
+## Exemple 7
+
+Podem comprovam i interpretar la inequació donada
+
+```{r}
+setmana = 1:10
+pes = 21*0.8^n + 12
+data.frame(setmana, pes)
+plot(setmana, pes, type='p')
+abline(a=25, b=0, col='red')  # Afegir recta y = 25 + 0*x
+```
 
 
-## Exercici 3:
+
+## Exercici 8
 
 Apartat a) Podem comprovam i interpretar el resultat que obtenim a mà:
 

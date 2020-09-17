@@ -1,5 +1,5 @@
 ---
-title: "T1 - Generar gràfiques diapositives"
+title: "T1 - Material per a les diapositives"
 output: html_document
 ---
 
