@@ -4,7 +4,8 @@ output: html_document
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+library(knitr)
+opts_chunk$set(echo = TRUE)
 ```
 
 
@@ -17,7 +18,8 @@ alternativa_1 = log10(494300000000000000000000)
 alternativa_2 = log10(4.943 * 10^23)
 alternativa_3 = log10(4.943e23)
 # Les agrupam i les mostram per pantalla:
-data.frame(alternativa_1, alternativa_2, alternativa_3)
+df = data.frame(alternativa_1, alternativa_2, alternativa_3)
+kable(df)
 ```
 
 Calculem ara el logaritme de la mantissa:
@@ -32,7 +34,8 @@ I també el logaritme de la part exponencial de diverses maneres:
 alternativa_1 = log10(10^23)
 alternativa_2 = log10(1e23)
 # Les agrupam i les mostram per pantalla:
-data.frame(alternativa_1, alternativa_2)
+df = data.frame(alternativa_1, alternativa_2)
+kable(df)
 ```
 
 
@@ -72,8 +75,8 @@ Podem comprovam i interpretar la inequació donada
 
 ```{r}
 setmana = 1:10
-pes = 21*0.8^n + 12
-data.frame(setmana, pes)
+pes = 21*0.8^setmana + 12
+kable(data.frame(setmana, pes))
 plot(setmana, pes, type='p')
 abline(a=25, b=0, col='red')  # Afegir recta y = 25 + 0*x
 ```
@@ -95,8 +98,7 @@ abline(a=33, b=0, col='red') # Afegir recta y = 33 + 0*x
 
 ## Exercici 4:
 
-
-Apartat a) Podem comprovar i interpretar el resultat: si la igualtat és certa, ho és sempre!
+* Apartat a) Podem comprovar i interpretar el resultat: si la igualtat és certa, ho és sempre!
 
 ```{r}
 a = 2
@@ -104,12 +106,10 @@ b = 4
 x = -0.8
 terme_esquerra = log10((a+b)^x)
 terme_dreta = x*log10(a) + x*log10(b)
-print(terme_esquerra)
-print(terme_dreta)
+kable(data.frame(valor_a = a, valor_b = b, valor_x = x, terme_esquerra, terme_dreta))
 ```
 
-
-Apartat b) Podem comprovar i interpretar el resultat: si la igualtat és certa, ho és sempre!
+* Apartat b) Podem comprovar i interpretar el resultat: si la igualtat és certa, ho és sempre!
 
 ```{r}
 a = c(1,   2,   3,   4,   5)
@@ -117,6 +117,6 @@ b = c(2,   4,   6,   8,  10)
 x = c(-2, -4,   1,  12,  0.1)
 terme_esquerra = log10((a*b)^x)
 terme_dreta = x*log10(a) + x*log10(b)
-data.frame(a, b, x, terme_esquerra, terme_dreta)
+kable(data.frame(valor_a = a, valor_b = b, valor_x = x, terme_esquerra, terme_dreta))
 ```
 
