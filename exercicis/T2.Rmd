@@ -396,3 +396,105 @@ points(
 )
 ```
 
+
+## Exercici 14
+
+
+Visualitzarem la relació en una gràfica lineal, semilog i loglog:
+
+```{r}
+x = 1:100
+y = 8/(x^1/3)
+plot(x, y, main="Gràfic lineal")
+plot(x, y, main="Gràfic semilog", log="y")
+plot(x, y, main="Gràfic loglog", log="xy")
+```
+
+Per tant, és una dependència potencial, que podriem reescriure com $y(x) = 8 \cdot x^{-1/3}$.
+
+
+## Exercici 15
+
+
+Visualitzarem les dades en una gràfica lineal, semilog i loglog:
+
+```{r}
+t = c(1, 2, 4, 10, 20)
+s = c(1.8, 2.05, 2.37, 2.87, 3.2)
+plot(t, s, xlab="Temps [h]", ylab="Sup. [mm^2]", 
+     main="Gràfic lineal")
+plot(t, s, xlab="Temps [h]", ylab="Sup. [mm^2]", 
+     main="Gràfic semilog", log="y")
+plot(t, s, xlab="Temps [h]", ylab="Sup. [mm^2]", 
+     main="Gràfic loglog", log="xy")
+
+```
+
+
+De nou, els punts es troben més alineats en el gràfic loglog, el que indica que és una relació potencial. Trobem ara el model potencial:
+
+```{r}
+model_loglog = lm(log10(s) ~ log10(t))
+summary(model_loglog)
+```
+
+És a dir,
+
+$$ \log(s) = 0.2554 + 0.1958 \log(t) \Rightarrow s = 10^{0.2554} \cdot t^{0.1958}. $$
+
+
+## Exercici 16
+
+
+Visualitzarem les dades en una gràfica lineal, semilog i loglog:
+
+```{r}
+M = c(21, 384, 2.6e3, 3.9e4, 5.8e5)
+E = c(54, 18, 7.1, 2.4, 0.63)
+plot(M, E, xlab="Pes [g]", ylab="Energia [J g^-1 km^-1]", 
+     main="Gràfic lineal")
+plot(M, E, xlab="Pes [g]", ylab="Energia [J g^-1 km^-1]", 
+     main="Gràfic semilog", log="y")
+plot(M, E, xlab="Pes [g]", ylab="Energia [J g^-1 km^-1]", 
+     main="Gràfic loglog", log="xy")
+```
+
+Novament, sembla ser potencial. Podem calcular els tres models lineals i comparar el criteri de bondat d'ajust R^2 per comprovar, numèricament, quin és el millor model:
+
+```{r}
+model_lineal = lm(E ~ M)
+model_semilog = lm(log10(E) ~ M)
+model_loglog = lm(log10(E) ~ log10(M))
+# i els mostram per pantalla:
+summary(model_lineal); summary(model_semilog); summary(model_loglog);
+```
+
+El millor model és, per tant, el model potencial
+
+* Apartat b)
+
+La relació donada és
+$$ \log(E) = 2.341 - 0.435 \log(M) \Rightarrow E = 10^{2.341} \cdot M^{-0.435} $$
+
+* Apartat c)
+
+
+Calculem, segons el nostre model, l'energia que necessita una persona de 75 Kg per transportar 1 gram de massa corporal durant 1 km:
+
+```{r} 
+M_persona = 75e3
+E_persona = 10^2.341 * M_persona^-0.435
+```
+
+Una persona requereix de `r E_persona` J g^-1 km^-1. Per transportar 1 km el seu pes (que són 75000 grams), necessitarà:
+
+```{r}
+E_persona_1km_75000grams = E_persona * 1 * 75000
+E_persona_1km_75000grams
+```
+
+I aquesta darrera, `r E_persona_1km_75000grams`, és la quantitat demanada.
+
+
+
+
