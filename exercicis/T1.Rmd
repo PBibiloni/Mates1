@@ -22,7 +22,7 @@ df = data.frame(alternativa_1, alternativa_2, alternativa_3)
 kable(df)
 ```
 
-Calculem ara el logaritme de la mantissa:
+Calculem el logaritme de la mantissa:
 
 ```{r}
 log10(4.943)  # Si no guardam el valor a una variable, ho mostra per pantalla
