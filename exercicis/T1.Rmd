@@ -5,6 +5,7 @@ output: html_document
 
 ```{r setup, include=FALSE}
 library(knitr)
+library(rmarkdown)
 opts_chunk$set(echo = TRUE)
 ```
 
@@ -46,7 +47,8 @@ kable(df)
 ```{r}
 x = seq(-10, 10, by=0.01)
 n = seq(-10, 10, by=1)
-plot(x, 3^x, main="3^x (exp. contínua)")
+plot(x, 3^x, main="3^x (exp. quasi-contínua)")
+curve(3^x,-10,10,main="3^x (exp. contínua)")
 plot(n, 3^n, main="3^n (exp. discreta)")
 ```
 
@@ -54,9 +56,8 @@ plot(n, 3^n, main="3^n (exp. discreta)")
 * Apartat b)
 
 ```{r}
-x = seq(-10, 10, by=0.01)
-plot(x, 3^(-x), main="3^(-x) (exp. contínua)")
-plot(x, (1/3)^x, main="(1/3)^x (exp. contínua)")
+curve(3^(-x),-10,10, main="3^(-x) (exp. contínua)")
+curve((1/3)^x,-10,10, main="(1/3)^x (exp. contínua)")
 ```
 
 
@@ -69,9 +70,10 @@ plot(n, -3^n, main="-3^n (exp. discreta)", ylim=c(-6e4, 6e4))
 plot(n, (-3)^n, main="(-3)^n (exp. discreta)", ylim=c(-6e4, 6e4))
     axis(1, pos=0, labels=FALSE)
 ```
+
 ## Exemple 7
 
-Podem comprovam i interpretar la inequació donada
+Podem comprovar i interpretar la inequació donada
 
 ```{r}
 setmana = 1:10
@@ -85,7 +87,7 @@ abline(a=25, b=0, col='red')  # Afegir recta y = 25 + 0*x
 
 ## Exercici 8
 
-Apartat a) Podem comprovam i interpretar el resultat que obtenim a mà:
+Apartat a) Podem comprovar i interpretar el resultat que obtenim a mà:
 
 ```{r}
 x = seq(-3, 3, by=0.01)
