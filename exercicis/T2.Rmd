@@ -59,7 +59,7 @@ curve(17*x^2.5, 1.40, 2.20, xlab = 'Alçada [m]', ylab = 'Pes [kg]')
 Visualitzem ara el model 3, on ara l'alçada depèn del pes:
 
 ```{r}
-curve(0.322 * x^0.4, 40, 120, xlab = 'Pes [kg]', ylab = 'Alçada [m]')
+curve(0.4 * x^0.6, 40, 120, xlab = 'Pes [kg]', ylab = 'Alçada [m]')
 ```
 
 ## Exemple 3
@@ -153,7 +153,7 @@ plot(x, y, col="red", type='o', log="y",
 
 ## Exercici 7-8
 
-Si ho feim de la següent forma no és correcte ja que l'eix vertical ha de representar la variable $y$, no la variable $Y$:
+Si ho feim de la següent forma no és correcte ja que l'eix vertical ha de representar la variable $y$, no la variable $Y$. De fet, l'eix vertical està en escala lineal!:
 
 ```{r}
 x = 0:10
@@ -234,6 +234,15 @@ points(
 )
 ```
 
+També podem representar directament la funció exponencial obtinguda:
+
+```{r}
+curve(450.29*0.983^x,0,150,col="red",xlab="Temps [min]",  
+    ylab="Conc. [mg/100 ml]")
+points(x=df$temps, y=df$concentracio)
+```
+
+
 ## Exercicis 10-11
 
 * Gràfica semi-log
@@ -242,7 +251,7 @@ Calculem els punts que ens demanen:
 
 ```{r}
 x = 1:6
-y = 8*x^2
+y = 4*x^2
 kable(data.frame(x, y))
 ```
 
@@ -293,7 +302,7 @@ axis(side=2, at=2^c(1:8))
 
 ```{r}
 x = 1:100
-y = 2 * 4.5^x
+y = 2 * x^4.5
 plot(x, y, log="xy", type="l")
 ```
 
@@ -357,6 +366,14 @@ points(
     x=df$temps, 
     y=df$concentracio, 
 )
+```
+
+També ho podem fer representant directament la funció trobada:
+
+```{r}
+curve(10^2.07061*x^{-0.41436},0,150,col="red",xlab="Temps [min]",  
+    ylab="Conc. [mg/100 ml]")
+points(x=df$temps, y=df$concentracio)
 ```
 
 
@@ -432,7 +449,7 @@ model_loglog = lm(log10(E) ~ log10(M))
 summary(model_lineal); summary(model_semilog); summary(model_loglog);
 ```
 
-El millor model és, per tant, el model potencial
+El millor model és, per tant, el model potencial.
 
 * Apartat b)
 
