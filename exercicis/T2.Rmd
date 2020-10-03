@@ -83,7 +83,8 @@ df = data.frame(
   concentracio=c(44, 35.2, 29.5, 25.8, 22.3)
 )
 kable(df)
-plot(df$temps, df$concentracio)         # Fer gràfica dels punts 
+plot(df$temps, df$concentracio,
+     xlab="Temps [min]", ylab="Concentració [mg/dl]")         # Fer gràfica dels punts 
 ```
 
 Calcularem un model de regressió lineal, i mostrarem
@@ -97,6 +98,7 @@ model = lm(
 # Mostram els coeficients del model
 summary(model)
 ```
+
 També podem visualitzar-ho en una gràfica:
 
 ```{r}
@@ -113,7 +115,7 @@ abline(model, col='red')
 
 
 
-## Exercicis 4-5
+## Exercicis 5-6
 
 * $f(x) = 10^x$
 
@@ -153,13 +155,10 @@ y = 0.1 * 10^x
 # Agrupam els punts (x, y(x)) i els mostram
 kable(data.frame(x, y))
 # Visualitzam la gràfica
-plot(x, fx, col="red", type='o', log="y",
+plot(x, y, col="red", type='o', log="y",
      xlim=c(-1, 5), xlab="Eix x", 
      ylim=c(1, 1e4), ylab="Eix y")
 ```
-
-
-
 
 
 
@@ -248,12 +247,6 @@ points(
 
 
 
-
-
-
-
-
-
 ## Exercicis 10-11
 
 * Gràfica semi-log
@@ -309,7 +302,6 @@ axis(side=2, at=2^c(1:8))
 
 
 
-
 ## Exemple 12
 
 Opció 1:
@@ -329,7 +321,6 @@ x = 1:100
 y = 2 * 4.5^x
 plot(x, y, log="xy", type="l")
 ```
-
 
 
 
@@ -375,7 +366,6 @@ abline(model_pot, col='red')
 ```
 
 
-
 Finalment, vegem-ho en una gràfica lineal:
 
 ```{r}
@@ -397,20 +387,20 @@ points(
 ```
 
 
-## Exercici 14
 
+## Exercici 14
 
 Visualitzarem la relació en una gràfica lineal, semilog i loglog:
 
 ```{r}
 x = 1:100
 y = 8/(x^1/3)
-plot(x, y, main="Gràfic lineal")
 plot(x, y, main="Gràfic semilog", log="y")
 plot(x, y, main="Gràfic loglog", log="xy")
 ```
 
 Per tant, és una dependència potencial, que podriem reescriure com $y(x) = 8 \cdot x^{-1/3}$.
+
 
 
 ## Exercici 15
@@ -446,7 +436,7 @@ $$ \log(s) = 0.2554 + 0.1958 \log(t) \Rightarrow s = 10^{0.2554} \cdot t^{0.1958
 ## Exercici 16
 
 
-Visualitzarem les dades en una gràfica lineal, semilog i loglog:
+Visualitzarem les dades en una gràfica lineal, semi-log i log-log:
 
 ```{r}
 M = c(21, 384, 2.6e3, 3.9e4, 5.8e5)
@@ -494,7 +484,5 @@ E_persona_1km_75000grams
 ```
 
 I aquesta darrera, `r E_persona_1km_75000grams`, és la quantitat demanada.
-
-
 
 
