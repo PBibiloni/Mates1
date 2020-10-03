@@ -237,7 +237,7 @@ points(
 També podem representar directament la funció exponencial obtinguda:
 
 ```{r}
-curve(450.29*0.983^x,0,150,col="red",xlab="Temps [min]",  
+curve(50.29*0.983^x,0,150,col="red",xlab="Temps [min]",  
     ylab="Conc. [mg/100 ml]")
 points(x=df$temps, y=df$concentracio)
 ```
@@ -371,7 +371,7 @@ points(
 També ho podem fer representant directament la funció trobada:
 
 ```{r}
-curve(10^2.07061*x^{-0.41436},0,150,col="red",xlab="Temps [min]",  
+curve(117.65*x^{-0.41},0,150,col="red",xlab="Temps [min]",  
     ylab="Conc. [mg/100 ml]")
 points(x=df$temps, y=df$concentracio)
 ```
