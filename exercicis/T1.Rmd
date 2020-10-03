@@ -97,7 +97,7 @@ abline(a=33, b=0, col='red') # Afegir recta y = 33 + 0*x
 
 
 
-## Exercici 4:
+## Exercici 9:
 
 * Apartat a) Podem comprovar i interpretar el resultat: si la igualtat és certa, ho és sempre!
 
