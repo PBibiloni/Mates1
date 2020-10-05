@@ -1,0 +1,59 @@
+---
+title: "T3 - Exercicis de les diapositives"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+library(knitr)
+opts_chunk$set(echo = TRUE)
+```
+
+## Exemple 1
+
+Podem calcular què passa a cada una de les poblacions:
+
+```{r}
+x0 = 1e8
+x1 = x0 - 30/100 * x0
+x2 = x1 - 30/100 * x1
+x3 = x2 - 30/100 * x2
+x4 = x3 - 30/100 * x3
+x5 = x4 - 30/100 * x4
+x6 = x5 - 30/100 * x5
+plot(c(x0, x1, x2, x3, x4, x5, x6), xlab="Hores", ylab="Cèl·lules")
+```
+
+
+## Exemple 4
+
+És més eficient una fórmula més senzilla, que ens permet calcular cada terme a partir del primer:
+You can also embed plots, for example:
+
+```{r}
+n = 0:20
+x_n = x0 * 0.7^n
+plot(x=n, y=x_n, 
+     xlab="Hores", ylab="Cèl·lules")
+kable((data.frame(n, x_n)))
+```
+
+
+## Exercici 7
+
+* Apartat b) 
+
+```{r}
+hores_mig_dia = 12
+cel.lules_mig_dia = 0.7^hores_mig_dia * 1e8
+kable((data.frame(cel.lules_mig_dia)))
+```
+
+
+* Apartat c) 
+
+Calculem el límit de la inequació
+
+```{r}
+n_limit = log10(0.25) / log10(0.7)
+```
+
