@@ -22,6 +22,12 @@ kable(head(data.frame(x, y)))
 plot(x, y, xlab = 'Distància [km]', ylab = 'Benzina consumida [L]')
 ```
 
+Mostrem-la de forma contínua:
+```{r}
+curve(7.5 * (x/100), 0, 1000, xlab = 'Distància [km]', ylab = 'Benzina consumida [L]')
+```
+
+
 * Desintegració radioactiva de l'Urani-235
 
 Començam visualitzant la dependència:
@@ -47,31 +53,20 @@ points(0:10, 100 * 0.5^(0:10/703.8), col='blue')
 Visualitzem el model 1:
 
 ```{r}
-a = seq(1.40, 2.20, by=0.01)
-p = 17*a^2.5
-plot(p, a, xlab = 'Pes [kg]', ylab = 'Alçada [m]')
-plot(a, p, xlab = 'Alçada [m]', ylab = 'Pes [kg]')
+curve(17*x^2.5, 1.40, 2.20, xlab = 'Alçada [m]', ylab = 'Pes [kg]')
 ```
 
-Visualitzem ara el model 3, que estableix la mateixa relació entre pes i alçada, però calculant el segon en funció del primer:
+Visualitzem ara el model 3, on ara l'alçada depèn del pes:
 
 ```{r}
-p = 40:120
-a = 0.322 * p^0.4
-plot(a, p, xlab = 'Alçada [m]', ylab = 'Pes [kg]')
-plot(p, a, xlab = 'Pes [kg]', ylab = 'Alçada [m]')
+curve(0.4 * x^0.6, 40, 120, xlab = 'Pes [kg]', ylab = 'Alçada [m]')
 ```
 
 ## Exemple 3
 
 ```{r}
-x = 0:10
-y = -3 * x + 40
-kable(data.frame(x, y))
-plot(x, y, type="l")
+curve(-3*x+40,0,10)
 ```
-
-
 
 ## Exemple 4
 
@@ -91,10 +86,7 @@ Calcularem un model de regressió lineal, i mostrarem
 
 ```{r}
 # Calcular model lineal de concentració en funció del temps
-model = lm(
-  concentracio~temps, 
-  data=df
-)
+model = lm(concentracio~temps, data=df)
 # Mostram els coeficients del model
 summary(model)
 ```
@@ -119,7 +111,7 @@ abline(model, col='red')
 
 * $f(x) = 10^x$
 
-Mostrem els eixos:
+Mostrem només els eixos:
 
 ```{r}
 plot(0, log="y", 
@@ -161,10 +153,15 @@ plot(x, y, col="red", type='o', log="y",
 ```
 
 
+## Exercici 7-8
 
+<<<<<<< HEAD
 ## Exercici 8
 
 Alternativa 1:
+=======
+Si ho feim de la següent forma no és correcte ja que l'eix vertical ha de representar la variable $y$, no la variable $Y$. De fet, l'eix vertical està en escala lineal!:
+>>>>>>> 442bd61ef95bb184dab3c34d46289a4cc6cffe88
 
 ```{r}
 x = 0:10
@@ -174,7 +171,7 @@ plot(x, Y, type="l")
 ```
 
 
-Alternativa 2 (preferida), deixant que ho faci R per noltros:
+La versió correcta és:
 
 ```{r}
 x = 0:10
@@ -214,9 +211,10 @@ També podem visualitzar-ho en una gràfica semi-log:
 # Fer gràfica dels punts       
 plot(
     x=df$temps, 
-    y=log10(df$concentracio), 
+    y=df$concentracio, 
     xlab="Temps [min]", 
-    ylab="log(Conc. [mg/100 ml])",
+    ylab="Conc. [mg/100 ml]",
+    log="y"
 )
 # Afegir la recta del model de regressió
 abline(model_exp, col='red')
@@ -244,7 +242,16 @@ points(
 )
 ```
 
+També podem representar directament la funció exponencial obtinguda:
 
+<<<<<<< HEAD
+=======
+```{r}
+curve(50.29*0.983^x,0,150,col="red",xlab="Temps [min]",  
+    ylab="Conc. [mg/100 ml]")
+points(x=df$temps, y=df$concentracio)
+```
+>>>>>>> 442bd61ef95bb184dab3c34d46289a4cc6cffe88
 
 
 ## Exercicis 10-11
@@ -255,7 +262,7 @@ Calculem els punts que ens demanen:
 
 ```{r}
 x = 1:6
-y = 8*x^2
+y = 4*x^2
 kable(data.frame(x, y))
 ```
 
@@ -301,30 +308,25 @@ axis(side=2, at=2^c(1:8))
 ```
 
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 442bd61ef95bb184dab3c34d46289a4cc6cffe88
 ## Exemple 12
 
-Opció 1:
 
 ```{r}
 x = 1:100
-y = 2 * 4.5^x
-X = log10(x)
-Y = log10(y)
-plot(X, Y, type="l")
-```
-
-Opció 2, preferida:
-
-```{r}
-x = 1:100
-y = 2 * 4.5^x
+y = 2 * x^4.5
 plot(x, y, log="xy", type="l")
 ```
 
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 442bd61ef95bb184dab3c34d46289a4cc6cffe88
 ## Exemple 13
 
 
@@ -339,7 +341,7 @@ kable(df)
 plot(df$temps, df$concentracio)
 ```
 
-Calcularem un model de regressió exponencial de la concentració en funció del temps, i mostrarem
+Calcularem un model de regressió potencial de la concentració en funció del temps, i mostrarem
 
 ```{r}
 # Calcular model lineal de concentració en funció del temps
@@ -351,21 +353,25 @@ model_pot = lm(
 summary(model_pot)
 ```
 
-També podem visualitzar-ho en una gràfica semi-log:
+També podem visualitzar-ho en una gràfica log-log:
 
 ```{r}
 # Fer gràfica dels punts       
 plot(
-    x=log10(df$temps), 
-    y=log10(df$concentracio), 
+    x=df$temps, 
+    y=df$concentracio, 
     xlab="log(Temps [min])", 
     ylab="log(Conc. [mg/100 ml])",
+    log="xy"
 )
 # Afegir la recta del model de regressió
 abline(model_pot, col='red')
 ```
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 442bd61ef95bb184dab3c34d46289a4cc6cffe88
 Finalment, vegem-ho en una gràfica lineal:
 
 ```{r}
@@ -386,11 +392,19 @@ points(
 )
 ```
 
+També ho podem fer representant directament la funció trobada:
+
+```{r}
+curve(117.65*x^{-0.41},0,150,col="red",xlab="Temps [min]",  
+    ylab="Conc. [mg/100 ml]")
+points(x=df$temps, y=df$concentracio)
+```
+
 
 
 ## Exercici 14
 
-Visualitzarem la relació en una gràfica lineal, semilog i loglog:
+Visualitzarem la relació en una gràfica lineal, semilog i log-log:
 
 ```{r}
 x = 1:100
@@ -406,7 +420,7 @@ Per tant, és una dependència potencial, que podriem reescriure com $y(x) = 8 \
 ## Exercici 15
 
 
-Visualitzarem les dades en una gràfica lineal, semilog i loglog:
+Visualitzarem les dades en una gràfica lineal, semilog i log-log:
 
 ```{r}
 t = c(1, 2, 4, 10, 20)
@@ -459,7 +473,7 @@ model_loglog = lm(log10(E) ~ log10(M))
 summary(model_lineal); summary(model_semilog); summary(model_loglog);
 ```
 
-El millor model és, per tant, el model potencial
+El millor model és, per tant, el model potencial.
 
 * Apartat b)
 
@@ -484,5 +498,8 @@ E_persona_1km_75000grams
 ```
 
 I aquesta darrera, `r E_persona_1km_75000grams`, és la quantitat demanada.
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 442bd61ef95bb184dab3c34d46289a4cc6cffe88
