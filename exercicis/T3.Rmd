@@ -48,12 +48,47 @@ cel.lules_mig_dia = 0.7^hores_mig_dia * 1e8
 kable((data.frame(cel.lules_mig_dia)))
 ```
 
-
 * Apartat c) 
 
 Calculem el límit de la inequació
 
 ```{r}
 n_limit = log10(0.25) / log10(0.7)
+n_limit
 ```
+
+I comprovem gràficament la solució:
+
+```{r}
+n = 0:20
+x_n = x0 * 0.7^n
+plot(x=n, y=x_n, 
+     xlab="Hores", ylab="Cèl·lules")
+abline(a=x0/4, b=0, col='red')
+```
+
+
+
+## Exercici 9
+
+* Apartat b) 
+
+```{r}
+hores_mig_dia = 12
+cel.lules_mig_dia = (0.7^hores_mig_dia * 96.66 + 3.33 ) * 1e6
+kable((data.frame(cel.lules_mig_dia)))
+```
+
+* Apartat c) 
+
+Comprovem gràficament la solució:
+
+```{r}
+n = 0:20
+x_n = (0.7^n * 96.66 + 3.33 ) * 1e6
+plot(x=n, y=x_n, 
+     xlab="Hores", ylab="Cèl·lules")
+abline(a=x0/4, b=0, col='red')
+```
+
 
