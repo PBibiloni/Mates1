@@ -20,7 +20,7 @@ x3 = x2 - 30/100 * x2
 x4 = x3 - 30/100 * x3
 x5 = x4 - 30/100 * x4
 x6 = x5 - 30/100 * x5
-plot(c(x0, x1, x2, x3, x4, x5, x6), xlab="Hores", ylab="Cèl·lules")
+plot(x=0:6, y=c(x0, x1, x2, x3, x4, x5, x6), xlab="Hores", ylab="Cèl·lules")
 ```
 
 
