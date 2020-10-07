@@ -27,7 +27,6 @@ plot(c(x0, x1, x2, x3, x4, x5, x6), xlab="Hores", ylab="Cèl·lules")
 ## Exemple 4
 
 És més eficient una fórmula més senzilla, que ens permet calcular cada terme a partir del primer:
-You can also embed plots, for example:
 
 ```{r}
 n = 0:20
@@ -45,7 +44,7 @@ kable((data.frame(n, x_n)))
 ```{r}
 hores_mig_dia = 12
 cel.lules_mig_dia = 0.7^hores_mig_dia * 1e8
-kable((data.frame(cel.lules_mig_dia)))
+cel.lules_mig_dia
 ```
 
 * Apartat c) 
