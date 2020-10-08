@@ -1,0 +1,58 @@
+---
+title: "T4 - Material per a les diapositives"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+source('utils.R')
+carrega_llibreries()
+```
+
+
+
+## Fites
+
+```{r}
+fun = function(n) {10 * (1-exp(-n/10))}
+x = 0:40
+df = data.frame(x=x, y=fun(x))
+ggplot(df, aes(x, y)) +
+    scale_y_continuous(limits=c(-1, 15)) +
+    geom_point() +
+    theme(axis.title.x=element_blank(), axis.title.y=element_blank())
+guarda_ggplot(tema=4, nom='Fites_v1.png')
+
+
+ggplot(df, aes(x, y)) +
+    scale_y_continuous(limits=c(-1, 15)) +
+    geom_point() +
+    geom_abline(intercept=13, slope=0, color="#00CC00") +
+    theme(axis.title.x=element_blank(), axis.title.y=element_blank())
+guarda_ggplot(tema=4, nom='Fites_v2.png')
+
+
+ggplot(df, aes(x, y)) +
+    scale_y_continuous(limits=c(-1, 15)) +
+    geom_point() +
+    geom_abline(intercept=13, slope=0, color="#00CC00") +
+    geom_abline(intercept=11, slope=0, color="#00CC00") +
+    geom_abline(intercept=8, slope=0, color="#0000CC") +
+    theme(axis.title.x=element_blank(), axis.title.y=element_blank())
+guarda_ggplot(tema=4, nom='Fites_v3.png')
+
+
+ggplot(df, aes(x, y)) +
+    scale_y_continuous(limits=c(-1, 15)) +
+    geom_point() +
+    geom_abline(intercept=10, slope=0, color="#00CC00") +
+    theme(axis.title.x=element_blank(), axis.title.y=element_blank())
+guarda_ggplot(tema=4, nom='Fites_v4.png')
+```
+
+
+
+
+## Creixement
+
+TODO
