@@ -65,7 +65,7 @@ curve(0.4 * x^0.6, 40, 120, xlab = 'Pes [kg]', ylab = 'Alçada [m]')
 ## Exemple 3
 
 ```{r}
-curve(-3*x+40,0,10)
+curve(-3*x+40, from=0, to=10)
 ```
 
 ## Exemple 4
@@ -78,7 +78,7 @@ df = data.frame(
   concentracio=c(44, 35.2, 29.5, 25.8, 22.3)
 )
 kable(df)
-plot(df$temps, df$concentracio,
+plot(x=df$temps, y=df$concentracio,
      xlab="Temps [min]", ylab="Concentració [mg/dl]")         # Fer gràfica dels punts 
 ```
 
@@ -86,7 +86,7 @@ Calcularem un model de regressió lineal, i mostrarem
 
 ```{r}
 # Calcular model lineal de concentració en funció del temps
-model = lm(concentracio~temps, data=df)
+model = lm(concentracio ~ temps, data=df)
 # Mostram els coeficients del model
 summary(model)
 ```
@@ -167,7 +167,7 @@ plot(x, Y, type="l")
 La versió correcta és:
 
 ```{r}
-x = 0:10
+x = 0:15
 y = 2 * 4.5^x
 plot(x, y, type="l", log="y")
 ```
