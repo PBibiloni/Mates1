@@ -1,0 +1,142 @@
+---
+title: "T4 - Exercicis de les diapositives"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+if(!'latex2exp' %in% colnames(installed.packages())) {install.packages('latex2exp')}
+library(latex2exp)
+library(knitr)
+opts_chunk$set(echo = TRUE)
+```
+
+
+## Exemple 2
+
+* Apartat a) Visualitzem el creixement i límits de $(-1.01)^n/100$:
+
+
+```{r}
+x1=1:10; x2=1:30; x3=1:100
+f = function(n) {(-1.05)^n}
+
+plot(1, f(1), main='log(n)', ylim=range(f(x1)), xlim=range(x1))
+points(x1, f(x1), col='green')
+```
+
+```{r}
+x1=1:10; x2=1:30; x3=1:100
+f = function(n) {(-1.05)^n}
+
+plot(1, f(1), main='log(n)', ylim=range(f(x3)), xlim=range(x3))
+points(x1, f(x1), col='green')
+```
+
+```{r}
+x1=1:10; x2=1:30; x3=1:100
+f = function(n) {(-1.05)^n}
+
+plot(1, f(1), main='log(n)', ylim=range(f(x3)), xlim=range(x3))
+points(x2, f(x2), col='red')
+points(x1, f(x1), col='green')
+```
+
+```{r}
+x1=1:10; x2=1:30; x3=1:100
+f = function(n) {(-1.05)^n}
+
+plot(1, f(1), main='log(n)', ylim=range(f(x3)), xlim=range(x3))
+points(x3, f(x3), col='blue')
+points(x2, f(x2), col='red')
+points(x1, f(x1), col='green')
+```
+
+
+
+
+* Apartat b) Visualitzem ara el creixement i límits del logaritme natural:
+
+
+```{r}
+x1=1:10; x2=1:100; x3=1:1000; x4=1:10000
+f = function(n) {log(n)}
+
+plot(1, f(1), main='log(n)', ylim=range(f(x4)), xlim=range(x4))
+points(x1, f(x1), col='green')
+```
+
+```{r}
+x1=1:10; x2=1:100; x3=1:1000; x4=1:10000
+f = function(n) {log(n)}
+
+plot(1, f(1), main='log(n)', ylim=range(f(x4)), xlim=range(x4))
+points(x2, f(x2), col='red')
+points(x1, f(x1), col='green')
+```
+
+```{r}
+x1=1:10; x2=1:100; x3=1:1000; x4=1:10000
+f = function(n) {log(n)}
+
+plot(1, f(1), main='log(n)', ylim=range(f(x4)), xlim=range(x4))
+points(x3, f(x3), col='blue')
+points(x2, f(x2), col='red')
+points(x1, f(x1), col='green')
+```
+
+```{r}
+x1=1:10; x2=1:100; x3=1:1000; x4=1:10000
+f = function(n) {log(n)}
+
+plot(1, f(1), main='log(n)', ylim=range(f(x4)), xlim=range(x4))
+points(x4, f(x4), col='black')
+points(x3, f(x3), col='blue')
+points(x2, f(x2), col='red')
+points(x1, f(x1), col='green')
+```
+
+
+
+* Apartat b) Visualitzem ara la funció $\frac{1.11^n - 150n}{1.1^n + n^2}$:
+
+```{r}
+x1=1:10; x2=1:100; x3=1:1000; x4=1:3000
+f = function(n) { (1.11^n-150*n) /(1.1^n + n^2) }
+
+plot(1, f(1), main=TeX('(1.11^n - 150n)/(1.1^n + n^2)'), 
+     ylim=range(f(x1)), xlim=range(x1))
+points(x1, f(x1), col='green')
+```
+
+```{r}
+x1=1:10; x2=1:100; x3=1:1000; x4=1:3000
+f = function(n) { (1.11^n-150*n) /(1.1^n + n^2) }
+
+plot(1, f(1), main=TeX('(1.11^n - 150n)/(1.1^n + n^2)'), 
+     ylim=range(f(x2)), xlim=range(x2))
+points(x2, f(x2), col='red')
+points(x1, f(x1), col='green')
+```
+
+```{r}
+x1=1:10; x2=1:100; x3=1:1000; x4=1:3000
+f = function(n) { (1.11^n-150*n) /(1.1^n + n^2) }
+
+plot(1, f(1), main=TeX('(1.11^n - 150n)/(1.1^n + n^2)'), 
+     ylim=range(f(x3)), xlim=range(x3))
+points(x3, f(x3), col='blue')
+points(x2, f(x2), col='red')
+points(x1, f(x1), col='green')
+```
+
+```{r}
+x1=1:10; x2=1:100; x3=1:1000; x4=1:3000
+f = function(n) { (1.11^n-150*n) /(1.1^n + n^2) }
+
+plot(1, f(1), main=TeX('(1.11^n - 150n)/(1.1^n + n^2)'), 
+     ylim=range(f(x4)), xlim=range(x4))
+points(x4, f(x4), col='black')
+points(x3, f(x3), col='blue')
+points(x2, f(x2), col='red')
+points(x1, f(x1), col='green')
+```
