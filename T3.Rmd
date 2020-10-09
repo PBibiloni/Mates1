@@ -1,0 +1,49 @@
+---
+title: "T3 - Exercicis de les diapositives"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+library(knitr)
+opts_chunk$set(echo = TRUE)
+```
+
+
+## Exemple 4
+
+
+```{r}
+x0 = 1e8
+x1 = x0 * 0.7
+x2 = x1 * 0.7
+x3 = x2 * 0.7
+x4 = x3 * 0.7
+x5 = x4 * 0.7
+x6 = x5 * 0.7
+plot(x=0:6, y=c(x0, x1, x2, x3, x4, x5, x6), ylim=c(0, 1e8),
+     xlab="Hores des de l'inici", ylab="Cèl·lules")
+```
+
+
+
+
+## Exercici 7
+
+* Apartat a)
+
+```{r}
+hores = 0:100
+cel = 0.7^hores * 1e8
+plot(x=hores, y=cel, 
+     xlab="Hores des de l'inici", ylab="Cèl·lules")
+```
+
+Al cap de mig dia (12 hores), tendrem:
+
+```{r}
+hores = 0:100
+cel = 0.7^hores * 1e8
+plot(x=hores, y=cel, 
+     xlab="Hores des de l'inici", ylab="Cèl·lules")
+abline()
+```
