@@ -1,0 +1,71 @@
+---
+title: "T5 - Exercicis de les diapositives"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+if(!'matlib' %in% colnames(installed.packages())) {install.packages('matlib')}
+library(matlib)
+library(knitr)
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Exemple 15
+
+Introduïm les dades: 
+
+```{r}
+A = matrix(c(-16, -9, 30, 17), nrow=2, ncol=2)
+v1 = c(5, 3)
+v2 = c(2, 1)
+v3 = c(7, 4)
+```
+
+Podem multiplicar matrius com:
+```{r}
+A %*% v1
+```
+
+Si un vector fos un múltiple de l'altre, ho seria component a component:
+
+```{r}
+A %*% v1 / v1
+```
+
+Així que, efectivament, v1 és un vector propi de valor propi 2. 
+
+
+
+## Exemple 19
+
+```{r}
+A = matrix(c(0, -1, 2, 3), nrow = 2)
+eigen(A)
+```
+
+
+## Exemple 20
+
+```{r}
+D = diag(c(1, 2))
+eigen(D)
+```
+
+```{r}
+A = matrix(c(0, -1, 2, 3), nrow = 2)
+eigen(A)
+```
+
+
+## Exercici 22
+
+```{r}
+A = matrix(c(3, 1, -1, 1), nrow = 2)
+eigen(A)
+```
+
+```{r}
+A = matrix(c(0, 1, -1, 0), nrow = 2)
+eigen(A)
+```
+
