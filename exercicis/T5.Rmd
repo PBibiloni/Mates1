@@ -4,7 +4,7 @@ output: html_document
 ---
 
 ```{r setup, include=FALSE}
-if(!'matlib' %in% colnames(installed.packages())) {install.packages('matlib')}
+if(!'matlib' %in% rownames(installed.packages())) {install.packages('matlib')}
 library(matlib)
 library(MASS)
 library(knitr)
@@ -39,18 +39,7 @@ Així que, efectivament, v1 és un vector propi de valor propi 2.
 
 ## Exemple 19
 
-```{r}
-A = matrix(c(0, -1, 2, 3), nrow = 2)
-eigen(A)
-```
-
-
-## Exemple 20
-
-```{r}
-D = diag(c(1, 2))
-eigen(D)
-```
+Obtenim la descomposició amb la funció `eigen', que ens retorna els valors propis i els vectors propis normalitzats:
 
 ```{r}
 A = matrix(c(0, -1, 2, 3), nrow = 2)
@@ -58,25 +47,7 @@ eigen(A)
 ```
 
 
-## Exercici 22
-
-```{r}
-A = matrix(c(3, 1, -1, 1), nrow = 2)
-eigen(A)
-```
-
-```{r}
-A = matrix(c(0, 1, -1, 0), nrow = 2)
-eigen(A)
-```
-
-
-# Exemple obtenir P, D i P^(-1)
-
-```{r}
-A = matrix(c(3, 1, -1, 0), nrow = 2)
-eigen(A)
-```
+Cream ara la matriu D, posant a la diagonal els vectors propis.
 
 ```{r}
 D = diag(eigen(A)$values)
@@ -84,28 +55,38 @@ D
 ```
 
 
+Seleccionem els vectors propis. Escollirem un múltiple d'ells per treballar amb menys decimals:
+
 ```{r}
 P = eigen(A)$vectors
 P = P / min(P)
 P
 ```
 
+
+I calcularem ara la matriu $P^{-1}$. Per treballar amb menys decimals, a continuació tens la matriu $P'$ tal que
+$$ P^{-1} = \frac{1}{\det(P)} \cdot P' $$
 ```{r}
-Pinv = inv(P)
+Pinv = solve(P)
 Pinv * det(P)
 ```
+
+Finalment, també podem obtenir el determinant de la matriu P:
+
 ```{r}
 det(P)
 ```
 
 
+Tot aquest comportament anterior, l'hem encapsulat a una funció, que tens a continuació:
+
 ```{r}
-diagonalitza_fraccions = function(A) {
+diagonalitza = function(A) {
   descomposicio = eigen(A)
-  D = diag(eigen(A)$values)
-  P = eigen(A)$vectors
-  P = P / min(P)
-  Pinv = inv(P)
+  D = diag(descomposicio$values)
+  P = descomposicio$vectors
+  P = P / min(abs(P))
+  Pinv = solve(P)
   
   mostra_matriu <- function(M, nom="Matriu") {
     out <- capture.output(M)
@@ -119,12 +100,47 @@ diagonalitza_fraccions = function(A) {
   mostra_matriu(A, nom="A =")
   mostra_matriu(D, nom="D = ")
   mostra_matriu(P, nom="P = ")
-  mostra_matriu(Pinv*det(P), nom="P^(-1) = 1/det(A) * (...)")
+  mostra_matriu(Pinv*det(P), nom="P^(-1) = 1/det(A) * P', on P' = ")
   mostra_valor(det(P), nom="det(P) = ")
 }
 
-diagonalitza_fraccions(A)
+diagonalitza(A)
 ```
+
+
+
+
+
+
+
+
+
+## Exemple 20
+
+```{r}
+D = diag(c(1, 2))
+diagonalitza(D)
+```
+
+```{r}
+A = matrix(c(0, -1, 2, 3), nrow = 2)
+diagonalitza(A)
+```
+
+
+## Exercici 22
+
+```{r}
+A = matrix(c(3, 1, -1, 1), nrow = 2)
+eigen(A)
+```
+
+```{r}
+B = matrix(c(0, 1, -1, 0), nrow = 2)
+eigen(B)
+```
+
+
 
 
 
