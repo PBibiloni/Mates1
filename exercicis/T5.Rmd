@@ -6,6 +6,7 @@ output: html_document
 ```{r setup, include=FALSE}
 if(!'matlib' %in% colnames(installed.packages())) {install.packages('matlib')}
 library(matlib)
+library(MASS)
 library(knitr)
 knitr::opts_chunk$set(echo = TRUE)
 ```
@@ -68,4 +69,76 @@ eigen(A)
 A = matrix(c(0, 1, -1, 0), nrow = 2)
 eigen(A)
 ```
+
+
+# Exemple obtenir P, D i P^(-1)
+
+```{r}
+A = matrix(c(3, 1, -1, 0), nrow = 2)
+eigen(A)
+```
+
+```{r}
+D = diag(eigen(A)$values)
+D
+```
+
+
+```{r}
+P = eigen(A)$vectors
+P = P / min(P)
+P
+```
+
+```{r}
+Pinv = inv(P)
+Pinv * det(P)
+```
+```{r}
+det(P)
+```
+
+
+```{r}
+diagonalitza_fraccions = function(A) {
+  descomposicio = eigen(A)
+  D = diag(eigen(A)$values)
+  P = eigen(A)$vectors
+  P = P / min(P)
+  Pinv = inv(P)
+  
+  mostra_matriu <- function(M, nom="Matriu") {
+    out <- capture.output(M)
+    cat(paste(c(nom, out, '\n'), collapse="\n"))
+  }
+  
+  mostra_valor <- function(v, nom="Valor") {
+    cat(sprintf("%s: %f\n\n", nom, v))
+  }
+  
+  mostra_matriu(A, nom="A =")
+  mostra_matriu(D, nom="D = ")
+  mostra_matriu(P, nom="P = ")
+  mostra_matriu(Pinv*det(P), nom="P^(-1) = 1/det(A) * (...)")
+  mostra_valor(det(P), nom="det(P) = ")
+}
+
+diagonalitza_fraccions(A)
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
