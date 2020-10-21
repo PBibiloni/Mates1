@@ -375,6 +375,57 @@ summary {
 </div>
 
 
+<div id="exerci-2" class="section level2">
+<h2>Exerci 2</h2>
+<p>Podem crear matrius especificant els seus valors per columna:</p>
+<pre class="r"><code>A = matrix(c(0, -1, 2, 3), nrow=2, ncol=2)
+v1 = matrix(c(1400, 1200), ncol=1)</code></pre>
+<p>I podem multiplicar matrius amb l’operador `%*%’, vegem-ho:</p>
+<pre class="r"><code>A %*% v1</code></pre>
+<pre><code>##      [,1]
+## [1,] 2400
+## [2,] 2200</code></pre>
+<p>AVIS PER NAVEGANTS: l’operador <code>*&#39; multiplica nombres, i quan l&#39;apliquem a matrius les multiplica element a element (NO utilitzant la multiplicació de matrius habitual). Per aquest motiu</code>A * v1’ hagués donat un error dient que les mides de <code>A&#39; i</code>v1’ no són compatibles.</p>
+<p>Observa també la diferència en les següents operacions:</p>
+<pre class="r"><code>A * A</code></pre>
+<pre><code>##      [,1] [,2]
+## [1,]    0    4
+## [2,]    1    9</code></pre>
+<pre class="r"><code>A %*% A</code></pre>
+<pre><code>##      [,1] [,2]
+## [1,]   -2    6
+## [2,]   -3    7</code></pre>
+</div>
+<div id="exercici-8" class="section level2">
+<h2>Exercici 8</h2>
+<p>La següent instrucció de `R’ ens calcula el rang d’una matriu:</p>
+<pre class="r"><code>M = matrix(c(
+  1, 1, 3,
+  2, 5, 9,
+  1, 1, 3, 
+  3, 4, 10,
+  2, 2, 6
+), nrow=3)
+qr(M)$rank</code></pre>
+<pre><code>## [1] 2</code></pre>
+</div>
+<div id="exemple-9" class="section level2">
+<h2>Exemple 9</h2>
+<p>Podem calcular la transposada d’una matriu (o d’un vector) amb la funció `t(…)’.</p>
+<p>Així, podem comprovar si dos vectors són ortogonals o no:</p>
+<pre class="r"><code>v1 = matrix(c(1, 1, 1), ncol=1)
+v2 = matrix(c(1, 1, -2), ncol=1)
+v3 = matrix(c(1, -1, 0), ncol=1)
+
+t(v1) %*% v2</code></pre>
+<pre><code>##      [,1]
+## [1,]    0</code></pre>
+<p>També podem calcular la norma d’un vector:</p>
+<pre class="r"><code>norma_v1 = sqrt(sum(v1^2))
+norma_v1</code></pre>
+<pre><code>## [1] 1.732051</code></pre>
+<p>Aquest vector, per tant, NO és unitari</p>
+</div>
 <div id="exemple-15" class="section level2">
 <h2>Exemple 15</h2>
 <p>Introduïm les dades:</p>
@@ -382,7 +433,7 @@ summary {
 v1 = c(5, 3)
 v2 = c(2, 1)
 v3 = c(7, 4)</code></pre>
-<p>Podem multiplicar matrius com:</p>
+<p>Recordem la multiplicació de matrius, que podem fer com:</p>
 <pre class="r"><code>A %*% v1</code></pre>
 <pre><code>##      [,1]
 ## [1,]   10
@@ -407,7 +458,7 @@ eigen(A)</code></pre>
 ##            [,1]       [,2]
 ## [1,] -0.7071068 -0.8944272
 ## [2,] -0.7071068 -0.4472136</code></pre>
-<p>Cream ara la matriu D, posant a la diagonal els vectors propis.</p>
+<p>AVÍS PER NAVEGANTS: A vegades, la matriu no es pot descomposar en valors propis, i la funció <code>eigen&#39; no ens ho diu directament! (A la matriu</code>$vectors’ aparieran columnes repetides, i no serà invertible) . Cream ara la matriu D, posant a la diagonal els vectors propis.</p>
 <pre class="r"><code>D = diag(eigen(A)$values)
 D</code></pre>
 <pre><code>##      [,1] [,2]
@@ -429,8 +480,10 @@ Pinv * det(P)</code></pre>
 <p>Finalment, també podem obtenir el determinant de la matriu P:</p>
 <pre class="r"><code>det(P)</code></pre>
 <pre><code>## [1] -0.3952847</code></pre>
-<p>Tot aquest comportament anterior, l’hem encapsulat a una funció, que tens a continuació:</p>
-<pre class="r"><code>library(UIB20100Tallers)
+<p>Tot aquest comportament anterior, l’hem encapsulat a una funció a la llibreria `UIB20100Tallers’, que tens a continuació:</p>
+<pre class="r"><code># Necessitam primer carregar la llibreria
+library(UIB20100Tallers) 
+# I ara diagonalitzam la matriu
 diagonalitza(A)</code></pre>
 <table>
 <colgroup>

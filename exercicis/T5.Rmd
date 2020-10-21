@@ -6,12 +6,77 @@ output: html_document
 ```{r setup, include=FALSE}
 if(!"devtools" %in% rownames(installed.packages())) {install.packages("devtools")}
 try(detach("package:UIB20100Tallers", unload=TRUE), silent=TRUE)
-v = '0.1.3.6'; url = sprintf("https://github.com/PBibiloni/Mates1/raw/master/pkg/libt_%s.tar.gz", v)
+v = '0.1.3.7'; url = sprintf("https://github.com/PBibiloni/Mates1/raw/master/pkg/libt_%s.tar.gz", v)
 check = devtools::install_url(url, upgrade="never", quiet=TRUE)
 library(UIB20100Tallers)
 library(knitr)
 knitr::opts_chunk$set(echo=TRUE, error=TRUE)
 ```
+
+
+
+## Exerci 2
+
+Podem crear matrius especificant els seus valors per columna:
+
+```{r}
+A = matrix(c(0, -1, 2, 3), nrow=2, ncol=2)
+v1 = matrix(c(1400, 1200), ncol=1)
+```
+
+I podem multiplicar matrius amb l'operador `%*%', vegem-ho:
+
+```{r}
+A %*% v1
+```
+
+AVIS PER NAVEGANTS: l'operador `*' multiplica nombres, i quan l'apliquem a matrius les multiplica element a element (NO utilitzant la multiplicació de matrius habitual). Per aquest motiu `A * v1' hagués donat un error dient que les mides de `A' i `v1' no són compatibles.
+
+Observa també la diferència en les següents operacions:
+
+```{r}
+A * A
+A %*% A
+```
+
+## Exercici 8
+
+La següent instrucció de `R' ens calcula el rang d'una matriu:
+
+```{r}
+M = matrix(c(
+  1, 1, 3,
+  2, 5, 9,
+  1, 1, 3, 
+  3, 4, 10,
+  2, 2, 6
+), nrow=3)
+qr(M)$rank
+```
+
+
+## Exemple 9
+
+Podem calcular la transposada d'una matriu (o d'un vector) amb la funció `t(...)'.
+
+Així, podem comprovar si dos vectors són ortogonals o no:
+
+```{r}
+v1 = matrix(c(1, 1, 1), ncol=1)
+v2 = matrix(c(1, 1, -2), ncol=1)
+v3 = matrix(c(1, -1, 0), ncol=1)
+
+t(v1) %*% v2
+```
+
+També podem calcular la norma d'un vector:
+
+```{r}
+norma_v1 = sqrt(sum(v1^2))
+norma_v1
+```
+
+Aquest vector, per tant, NO és unitari
 
 
 ## Exemple 15
@@ -25,10 +90,13 @@ v2 = c(2, 1)
 v3 = c(7, 4)
 ```
 
-Podem multiplicar matrius com:
+
+Recordem la multiplicació de matrius, que podem fer com:
+
 ```{r}
 A %*% v1
 ```
+
 
 Si un vector fos un múltiple de l'altre, ho seria component a component:
 
@@ -49,7 +117,8 @@ A = matrix(c(0, -1, 2, 3), nrow = 2)
 eigen(A)
 ```
 
-
+AVÍS PER NAVEGANTS: A vegades, la matriu no es pot descomposar en valors propis, i la funció `eigen' no ens ho diu directament! (A la matriu `$vectors' aparieran columnes repetides, i no serà invertible)
+.
 Cream ara la matriu D, posant a la diagonal els vectors propis.
 
 ```{r}
@@ -93,18 +162,13 @@ diagonalitza(A)
 
 
 
-
-
-
-
-
-
 ## Exemple 20
 
 ```{r}
 D = diag(c(1, 2))
 diagonalitza(D)
 ```
+
 
 ```{r}
 A = matrix(c(0, -1, 2, 3), nrow = 2)
