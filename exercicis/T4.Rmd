@@ -7,7 +7,7 @@ output: html_document
 if(!'latex2exp' %in% rownames(installed.packages())) {install.packages('latex2exp')}
 library(latex2exp)
 library(knitr)
-opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo=TRUE, error=TRUE)
 ```
 
 

@@ -8,7 +8,7 @@ if(!'matlib' %in% rownames(installed.packages())) {install.packages('matlib')}
 library(matlib)
 library(MASS)
 library(knitr)
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo=TRUE, error=TRUE)
 ```
 
 ## Exemple 15
