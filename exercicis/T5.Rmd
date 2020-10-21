@@ -6,7 +6,7 @@ output: html_document
 ```{r setup, include=FALSE}
 if(!"devtools" %in% rownames(installed.packages())) {install.packages("devtools")}
 try(detach("package:UIB20100Tallers", unload=TRUE), silent=TRUE)
-v = '0.1.3.7'; url = sprintf("https://github.com/PBibiloni/Mates1/raw/master/pkg/libt_%s.tar.gz", v)
+v = '0.1.3.10'; url = sprintf("https://github.com/PBibiloni/Mates1/raw/master/pkg/libt_%s.tar.gz", v)
 check = devtools::install_url(url, upgrade="never", quiet=TRUE)
 library(UIB20100Tallers)
 library(knitr)
@@ -180,29 +180,54 @@ diagonalitza(A)
 
 ```{r}
 A = matrix(c(3, 1, -1, 1), nrow = 2)
-eigen(A)
+diagonalitza(A)
 ```
 
 ```{r}
 B = matrix(c(0, 1, -1, 0), nrow = 2)
-eigen(B)
+diagonalitza(B)
+```
+
+
+## Exemple 24
+
+```{r}
+A = matrix(c(10, 1, 0, 10), nrow=2)
+A %*% A
+```
+
+AVÍS PER NAVEGANTS: L'operador `^' és l'exponenciació entre nombres, i en el cas de matrius faria l'exponencial element a element.
+
+Podem calcular $A^5$ com:
+
+```{r}
+A %*% A %*% A %*% A %*% A
+```
+
+
+
+## Exercici 25
+
+```{r}
+A = matrix(c(-3, -1, 1, -1), nrow=2)
+eigen(A)
+```
+
+Observem que els dos vectors propis són linealment dependents: R no ha trobat dos vectors propis linealment independents perquè aquesta matriu no és diagonalitzable.
+
+Per veure-ho, utilitzarem la funció que ens dona la diagonalització:
+
+```{r}
+diagonalitza(A)
 ```
 
 
 
 
 
+## Exercici 26
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+```{r}
+A = matrix(c(13, 25, -4, -7), nrow=2)
+diagonalitza(A)
+```
