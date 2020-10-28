@@ -5,10 +5,10 @@ output: html_document
 
 ```{r setup, include=FALSE}
 if(!"devtools" %in% rownames(installed.packages())) {install.packages("devtools")}
-try(detach("package:UIB20100Tallers", unload=TRUE), silent=TRUE)
-v = '0.1.3.11'; url = sprintf("https://github.com/PBibiloni/Mates1/raw/master/pkg/libt_%s.tar.gz", v)
-check = devtools::install_url(url, upgrade="never", quiet=TRUE)
-library(UIB20100Tallers)
+try(detach("package:UIB20100", unload=TRUE), silent=TRUE)
+v = '2020.4.0.5'; url = sprintf("https://github.com/PBibiloni/Mates1/raw/master/pkg/libt_%s.tar.gz", v)
+devtools::install_url(url, upgrade="never", quiet=TRUE)
+library(UIB20100)
 library(knitr)
 knitr::opts_chunk$set(echo=TRUE, error=TRUE)
 ```
@@ -24,13 +24,13 @@ A = matrix(c(0, -1, 2, 3), nrow=2, ncol=2)
 v1 = matrix(c(1400, 1200), ncol=1)
 ```
 
-I podem multiplicar matrius amb l'operador `%*%', vegem-ho:
+I podem multiplicar matrius amb l'operador `%*%`, vegem-ho:
 
 ```{r}
 A %*% v1
 ```
 
-AVIS PER NAVEGANTS: l'operador `*' multiplica nombres, i quan l'apliquem a matrius les multiplica element a element (NO utilitzant la multiplicació de matrius habitual). Per aquest motiu `A * v1' hagués donat un error dient que les mides de `A' i `v1' no són compatibles.
+AVIS PER NAVEGANTS: l'operador asterisc `\*` multiplica nombres, i quan l'apliquem a matrius les multiplica element a element (NO utilitzant la multiplicació de matrius habitual). Per aquest motiu `A * v1` hagués donat un error dient que les mides de `A` i `v1` no són compatibles.
 
 Observa també la diferència en les següents operacions:
 
@@ -41,7 +41,7 @@ A %*% A
 
 ## Exercici 8
 
-La següent instrucció de `R' ens calcula el rang d'una matriu:
+La següent instrucció de `R` ens calcula el rang d'una matriu:
 
 ```{r}
 M = matrix(c(
@@ -57,7 +57,7 @@ qr(M)$rank
 
 ## Exemple 9
 
-Podem calcular la transposada d'una matriu (o d'un vector) amb la funció `t(...)'.
+Podem calcular la transposada d'una matriu (o d'un vector) amb la funció `t(...)`.
 
 Així, podem comprovar si dos vectors són ortogonals o no:
 
@@ -110,15 +110,15 @@ Així que, efectivament, v1 és un vector propi de valor propi 2.
 
 ## Exemple 19
 
-Obtenim la descomposició amb la funció `eigen', que ens retorna els valors propis i els vectors propis normalitzats:
+Obtenim la descomposició amb la funció `eigen`, que ens retorna els valors propis i els vectors propis normalitzats:
 
 ```{r}
 A = matrix(c(0, -1, 2, 3), nrow = 2)
 eigen(A)
 ```
 
-AVÍS PER NAVEGANTS: A vegades, la matriu no es pot descomposar en valors propis, i la funció `eigen' no ens ho diu directament! (A la matriu `$vectors' aparieran columnes repetides, i no serà invertible)
-.
+AVÍS PER NAVEGANTS: A vegades, la matriu no es pot descomposar en valors propis, i la funció `eigen` no ens ho diu directament! (A la matriu `$vectors` aparieran columnes repetides, i no serà invertible).
+
 Cream ara la matriu D, posant a la diagonal els vectors propis.
 
 ```{r}
@@ -151,14 +151,23 @@ det(P)
 ```
 
 
-Tot aquest comportament anterior, l'hem encapsulat a una funció a la llibreria `UIB20100Tallers', que tens a continuació:
+Tot aquest comportament anterior, l'hem encapsulat dues funcions a la llibreria `UIB20100`, que tens a continuació:
+
+* diagonalitza: retorna les matrius P i D per poder treballar amb elles a R.
+* mostra.diagonalitzacio: mostra per pantalla les matrius P i D, per poder fer feina a mà.
 
 ```{r}
-# Necessitam primer carregar la llibreria
-library(UIB20100Tallers) 
+# Necessitam primer haver carregat la llibreria amb l'instrucció `library(UIB20100)` (ho hem fet al primer chunk)
 # I ara diagonalitzam la matriu
-diagonalitza(A)
+descomposicio = diagonalitza(A)
+descomposicio
 ```
+
+
+```{r}
+mostra.diagonalitzacio(A)
+```
+
 
 
 
@@ -166,13 +175,13 @@ diagonalitza(A)
 
 ```{r}
 D = diag(c(1, 2))
-diagonalitza(D)
+mostra.diagonalitzacio(D)
 ```
 
 
 ```{r}
 A = matrix(c(0, -1, 2, 3), nrow = 2)
-diagonalitza(A)
+mostra.diagonalitzacio(A)
 ```
 
 
@@ -180,12 +189,12 @@ diagonalitza(A)
 
 ```{r}
 A = matrix(c(3, 1, -1, 1), nrow = 2)
-diagonalitza(A)
+mostra.diagonalitzacio(A)
 ```
 
 ```{r}
 B = matrix(c(0, 1, -1, 0), nrow = 2)
-diagonalitza(B)
+mostra.diagonalitzacio(B)
 ```
 
 
@@ -196,7 +205,7 @@ A = matrix(c(10, 1, 0, 10), nrow=2)
 A %*% A
 ```
 
-AVÍS PER NAVEGANTS: L'operador `^' és l'exponenciació entre nombres, i en el cas de matrius faria l'exponencial element a element.
+AVÍS PER NAVEGANTS: L'operador `^` és l'exponenciació entre nombres, i en el cas de matrius faria l'exponencial element a element.
 
 Podem calcular $A^5$ com:
 
@@ -218,7 +227,7 @@ Observem que els dos vectors propis són linealment dependents: R no ha trobat d
 Per veure-ho, utilitzarem la funció que ens dona la diagonalització:
 
 ```{r}
-diagonalitza(A)
+mostra.diagonalitzacio(A)
 ```
 
 
@@ -229,5 +238,5 @@ diagonalitza(A)
 
 ```{r}
 A = matrix(c(13, 25, -4, -7), nrow=2)
-diagonalitza(A)
+mostra.diagonalitzacio(A)
 ```

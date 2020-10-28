@@ -1,0 +1,138 @@
+---
+title: "T6 - Exercicis de les diapositives"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+if(!"devtools" %in% rownames(installed.packages())) {install.packages("devtools")}
+try(detach("package:UIB20100", unload=TRUE), silent=TRUE)
+v = '2020.4.0.5'; url = sprintf("https://github.com/PBibiloni/Mates1/raw/master/pkg/libt_%s.tar.gz", v)
+devtools::install_url(url, upgrade="never", quiet=TRUE)
+library(UIB20100)
+library(knitr)
+knitr::opts_chunk$set(echo=TRUE, error=TRUE)
+```
+
+
+
+## Exerci 8
+
+* Apartat a)
+
+```{r}
+(2 -5i) + (3.5 + 7i)
+```
+
+* Apartat e) Observeu: R interpreta "i" com una variable, però "1i" com el nombre imaginari.
+
+Podem racionalitzar:
+
+```{r}
+numerador_racionalitzat = (2-5i) * (1-1i)
+denominador_racionalitzat = (1+1i) * (1-1i)
+```
+
+I calcular com:
+
+```{r}
+numerador_racionalitzat/2
+```
+
+O bé podem deixar que R ho faci per noltros:
+
+```{r}
+(2 - 5i)/(1+1i)
+```
+
+
+## Exercici 9
+
+* Apartat a)
+
+Les funcions "Mod" i "Arg" ens donen el mòdul i l'argument (en radiants!), respectivament.
+
+```{r}
+z = 2i
+Mod(z)
+Arg(z)
+Arg(z) * 180/pi
+```
+
+Les funcions "Re" i "Im" ens donen la part real i la part imaginària del nombre z = a+bi:
+
+```{r}
+Re(z)
+Im(z)
+```
+
+
+
+
+
+## Exemple 11
+
+* Apartat a)
+
+```{r}
+z = 10-15i
+Mod(z)
+Arg(z) * 180/pi
+```
+
+* Apartat b)
+
+```{r}
+z = -5+3i
+Mod(z)
+Arg(z) * 180/pi
+```
+
+
+## Exemple 15
+
+```{r}
+A = matrix(c(1, 0, 0, 0, 2, 0, 0, 0, 3), ncol=3)
+descomposicio = diagonalitza(A)
+mostra.diagonalitzacio(descomposicio)
+```
+
+```{r}
+B = matrix(c(0, -1, 1, 0), ncol=2)
+descomposicio = diagonalitza(B)
+mostra.diagonalitzacio(descomposicio)
+```
+
+```{r}
+C = matrix(c(0, -1, 0, 1, 0, 0, 0, 0, 3), ncol=3)
+descomposicio = diagonalitza(C)
+mostra.diagonalitzacio(descomposicio)
+```
+
+
+
+## Exemple 16
+
+Diagonalitzem la matriu:
+
+```{r}
+A = matrix(c(2.8, 0.164, -10, 1.2), ncol=2)
+descomposicio = diagonalitza(A)
+mostra.diagonalitzacio(descomposicio)
+```
+
+Podem calcular els primers valors que ens apareixen:
+
+```{r}
+x = function(n) {50*(2+1i)^n + 50*(2-1i)^n}
+y = function(n) {(4-5i)*(2+1i)^n + (4+5i)*(2-1i)^n}
+n=0:5
+x(n)
+y(n)
+```
+
+I representem gràficament les expressions que hem trobat:
+
+```{r}
+plot(n, x(n), type="l", col="red")
+lines(n, y(n))
+```
