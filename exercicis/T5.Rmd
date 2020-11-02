@@ -6,7 +6,7 @@ output: html_document
 ```{r setup, include=FALSE}
 if(!"devtools" %in% rownames(installed.packages())) {install.packages("devtools")}
 try(detach("package:UIB20100", unload=TRUE), silent=TRUE)
-v = '2020.4.0.5'; url = sprintf("https://github.com/PBibiloni/Mates1/raw/master/pkg/libt_%s.tar.gz", v)
+v = '2020.4.0.8'; url = sprintf("https://github.com/PBibiloni/Mates1/raw/master/pkg/libt_%s.tar.gz", v)
 devtools::install_url(url, upgrade="never", quiet=TRUE)
 library(UIB20100)
 library(knitr)
@@ -182,6 +182,24 @@ mostra.diagonalitzacio(D)
 ```{r}
 A = matrix(c(0, -1, 2, 3), nrow = 2)
 mostra.diagonalitzacio(A)
+```
+
+
+## Exemple 21
+
+```{r}
+A = matrix(c(0, -1, 2, 3), nrow = 2)
+mostra.diagonalitzacio(A)
+```
+
+```{r}
+v0 = matrix(c(1400, 800), ncol = 1)
+descomposicio = diagonalitza(A)
+D = descomposicio$D
+P = descomposicio$P
+Pinv = solve(P)
+v5 = P %*% D^5 %*% Pinv %*% v0
+v5
 ```
 
 
