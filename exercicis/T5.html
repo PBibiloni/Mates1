@@ -380,12 +380,12 @@ summary {
 <p>Podem crear matrius especificant els seus valors per columna:</p>
 <pre class="r"><code>A = matrix(c(0, -1, 2, 3), nrow=2, ncol=2)
 v1 = matrix(c(1400, 1200), ncol=1)</code></pre>
-<p>I podem multiplicar matrius amb l’operador `%*%’, vegem-ho:</p>
+<p>I podem multiplicar matrius amb l’operador <code>%*%</code>, vegem-ho:</p>
 <pre class="r"><code>A %*% v1</code></pre>
 <pre><code>##      [,1]
 ## [1,] 2400
 ## [2,] 2200</code></pre>
-<p>AVIS PER NAVEGANTS: l’operador <code>*&#39; multiplica nombres, i quan l&#39;apliquem a matrius les multiplica element a element (NO utilitzant la multiplicació de matrius habitual). Per aquest motiu</code>A * v1’ hagués donat un error dient que les mides de <code>A&#39; i</code>v1’ no són compatibles.</p>
+<p>AVIS PER NAVEGANTS: l’operador asterisc <code>\*</code> multiplica nombres, i quan l’apliquem a matrius les multiplica element a element (NO utilitzant la multiplicació de matrius habitual). Per aquest motiu <code>A * v1</code> hagués donat un error dient que les mides de <code>A</code> i <code>v1</code> no són compatibles.</p>
 <p>Observa també la diferència en les següents operacions:</p>
 <pre class="r"><code>A * A</code></pre>
 <pre><code>##      [,1] [,2]
@@ -398,7 +398,7 @@ v1 = matrix(c(1400, 1200), ncol=1)</code></pre>
 </div>
 <div id="exercici-8" class="section level2">
 <h2>Exercici 8</h2>
-<p>La següent instrucció de `R’ ens calcula el rang d’una matriu:</p>
+<p>La següent instrucció de <code>R</code> ens calcula el rang d’una matriu:</p>
 <pre class="r"><code>M = matrix(c(
   1, 1, 3,
   2, 5, 9,
@@ -411,7 +411,7 @@ qr(M)$rank</code></pre>
 </div>
 <div id="exemple-9" class="section level2">
 <h2>Exemple 9</h2>
-<p>Podem calcular la transposada d’una matriu (o d’un vector) amb la funció `t(…)’.</p>
+<p>Podem calcular la transposada d’una matriu (o d’un vector) amb la funció <code>t(...)</code>.</p>
 <p>Així, podem comprovar si dos vectors són ortogonals o no:</p>
 <pre class="r"><code>v1 = matrix(c(1, 1, 1), ncol=1)
 v2 = matrix(c(1, 1, -2), ncol=1)
@@ -447,7 +447,7 @@ v3 = c(7, 4)</code></pre>
 </div>
 <div id="exemple-19" class="section level2">
 <h2>Exemple 19</h2>
-<p>Obtenim la descomposició amb la funció `eigen’, que ens retorna els valors propis i els vectors propis normalitzats:</p>
+<p>Obtenim la descomposició amb la funció <code>eigen</code>, que ens retorna els valors propis i els vectors propis normalitzats:</p>
 <pre class="r"><code>A = matrix(c(0, -1, 2, 3), nrow = 2)
 eigen(A)</code></pre>
 <pre><code>## eigen() decomposition
@@ -458,7 +458,8 @@ eigen(A)</code></pre>
 ##            [,1]       [,2]
 ## [1,] -0.7071068 -0.8944272
 ## [2,] -0.7071068 -0.4472136</code></pre>
-<p>AVÍS PER NAVEGANTS: A vegades, la matriu no es pot descomposar en valors propis, i la funció <code>eigen&#39; no ens ho diu directament! (A la matriu</code>$vectors’ aparieran columnes repetides, i no serà invertible) . Cream ara la matriu D, posant a la diagonal els vectors propis.</p>
+<p>AVÍS PER NAVEGANTS: A vegades, la matriu no es pot descomposar en valors propis, i la funció <code>eigen</code> no ens ho diu directament! (A la matriu <code>$vectors</code> aparieran columnes repetides, i no serà invertible).</p>
+<p>Cream ara la matriu D, posant a la diagonal els vectors propis.</p>
 <pre class="r"><code>D = diag(eigen(A)$values)
 D</code></pre>
 <pre><code>##      [,1] [,2]
@@ -480,48 +481,102 @@ Pinv * det(P)</code></pre>
 <p>Finalment, també podem obtenir el determinant de la matriu P:</p>
 <pre class="r"><code>det(P)</code></pre>
 <pre><code>## [1] -0.3952847</code></pre>
-<p>Tot aquest comportament anterior, l’hem encapsulat a una funció a la llibreria `UIB20100Tallers’, que tens a continuació:</p>
-<pre class="r"><code># Necessitam primer carregar la llibreria
-library(UIB20100Tallers) </code></pre>
-<pre><code>## 
-## Attaching package: &#39;UIB20100Tallers&#39;</code></pre>
-<pre><code>## The following objects are masked from &#39;package:UIB20100&#39;:
+<p>Tot aquest comportament anterior, l’hem encapsulat dues funcions a la llibreria <code>UIB20100</code>, que tens a continuació:</p>
+<ul>
+<li>diagonalitza: retorna les matrius P i D per poder treballar amb elles a R.</li>
+<li>mostra.diagonalitzacio: mostra per pantalla les matrius P i D, per poder fer feina a mà.</li>
+</ul>
+<pre class="r"><code># Necessitam primer haver carregat la llibreria amb l&#39;instrucció `library(UIB20100)` (ho hem fet al primer chunk)
+# I ara diagonalitzam la matriu
+descomposicio = diagonalitza(A)
+descomposicio</code></pre>
+<pre><code>## $Matriu
+##      [,1] [,2]
+## [1,]    0    2
+## [2,]   -1    3
 ## 
-##     diagonalitza, tallers.comprova, tallers.configura,
-##     tallers.enunciat, tallers.finalitza</code></pre>
-<pre class="r"><code># I ara diagonalitzam la matriu
-diagonalitza(A)</code></pre>
+## $D
+##      [,1] [,2]
+## [1,]    1    0
+## [2,]    0    2
+## 
+## $P
+##          [,1] [,2]
+## [1,] 1.999998    1
+## [2,] 1.000000    1</code></pre>
+<pre class="r"><code>mostra.diagonalitzacio(A)</code></pre>
 <table>
-<colgroup>
-<col width="2%"></col>
-<col width="97%"></col>
-</colgroup>
 <thead>
-<tr class="header">
-<th align="left"></th>
-<th align="left">Descomposició diagonal</th>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:left;">
+</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
-<td align="left"></td>
-<td align="left"><span class="math inline">\(\text{Matriu} = \begin{pmatrix} 0 &amp; -1 \\ 2 &amp; 3\end{pmatrix}\)</span></td>
+<tr>
+<td style="text-align:left;">
+Matriu =
+</td>
+<td style="text-align:left;">
+<span class="math display">\[\begin{pmatrix}
+     0 &amp; 2 \\ 
+     -1 &amp; 3
+\end{pmatrix}\]</span>
+</td>
 </tr>
-<tr class="even">
-<td align="left"></td>
-<td align="left"><span class="math inline">\(D = \begin{pmatrix} 2 &amp; 0 \\ 0 &amp; 1\end{pmatrix}\)</span></td>
+<tr>
+<td style="text-align:left;">
+D =
+</td>
+<td style="text-align:left;">
+<span class="math display">\[\begin{pmatrix}
+     1 &amp; 0 \\ 
+     0 &amp; 2
+\end{pmatrix}\]</span>
+</td>
 </tr>
-<tr class="odd">
-<td align="left"></td>
-<td align="left"><span class="math inline">\(P = \begin{pmatrix} -1.58 &amp; -1.58 \\ -2 &amp; -1\end{pmatrix}\)</span></td>
+<tr>
+<td style="text-align:left;">
+P =
+</td>
+<td style="text-align:left;">
+<span class="math display">\[\begin{pmatrix}
+     2 &amp; 1 \\ 
+     1 &amp; 1
+\end{pmatrix}\]</span>
+</td>
 </tr>
-<tr class="even">
-<td align="left"></td>
-<td align="left"><span class="math inline">\(P^{-1} = \frac{1}{det(P)} \cdot P&#39;, \text{ on } P&#39;=\begin{pmatrix} 1 &amp; -1.58 \\ -2 &amp; 1.58\end{pmatrix}\)</span></td>
+<tr>
+<td style="text-align:left;">
+P^(-1) = 1/det(P) * P’, on P’ =
+</td>
+<td style="text-align:left;">
+<span class="math display">\[\begin{pmatrix}
+     1 &amp; -1 \\ 
+     -1 &amp; 2
+\end{pmatrix}\]</span>
+</td>
 </tr>
-<tr class="odd">
-<td align="left"></td>
-<td align="left"><span class="math inline">\(\det(P) = 1.58\)</span></td>
+<tr>
+<td style="text-align:left;">
+P^(-1) =
+</td>
+<td style="text-align:left;">
+<span class="math display">\[\begin{pmatrix}
+     1 &amp; -1 \\ 
+     -1 &amp; 2
+\end{pmatrix}\]</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+det(P) =
+</td>
+<td style="text-align:left;">
+1
+</td>
 </tr>
 </tbody>
 </table>
@@ -529,74 +584,156 @@ diagonalitza(A)</code></pre>
 <div id="exemple-20" class="section level2">
 <h2>Exemple 20</h2>
 <pre class="r"><code>D = diag(c(1, 2))
-diagonalitza(D)</code></pre>
+mostra.diagonalitzacio(D)</code></pre>
 <table>
-<colgroup>
-<col width="2%"></col>
-<col width="97%"></col>
-</colgroup>
 <thead>
-<tr class="header">
-<th align="left"></th>
-<th align="left">Descomposició diagonal</th>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:left;">
+</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
-<td align="left"></td>
-<td align="left"><span class="math inline">\(\text{Matriu} = \begin{pmatrix} 1 &amp; 0 \\ 0 &amp; 2\end{pmatrix}\)</span></td>
+<tr>
+<td style="text-align:left;">
+Matriu =
+</td>
+<td style="text-align:left;">
+<span class="math display">\[\begin{pmatrix}
+     1 &amp; 0 \\ 
+     0 &amp; 2
+\end{pmatrix}\]</span>
+</td>
 </tr>
-<tr class="even">
-<td align="left"></td>
-<td align="left"><span class="math inline">\(D = \begin{pmatrix} 2 &amp; 0 \\ 0 &amp; 1\end{pmatrix}\)</span></td>
+<tr>
+<td style="text-align:left;">
+D =
+</td>
+<td style="text-align:left;">
+<span class="math display">\[\begin{pmatrix}
+     1 &amp; 0 \\ 
+     0 &amp; 2
+\end{pmatrix}\]</span>
+</td>
 </tr>
-<tr class="odd">
-<td align="left"></td>
-<td align="left"><span class="math inline">\(P = \begin{pmatrix} 0 &amp; 1 \\ -1 &amp; 0\end{pmatrix}\)</span></td>
+<tr>
+<td style="text-align:left;">
+P =
+</td>
+<td style="text-align:left;">
+<span class="math display">\[\begin{pmatrix}
+     1 &amp; 0 \\ 
+     0 &amp; 1
+\end{pmatrix}\]</span>
+</td>
 </tr>
-<tr class="even">
-<td align="left"></td>
-<td align="left"><span class="math inline">\(P^{-1} = \frac{1}{det(P)} \cdot P&#39;, \text{ on } P&#39;=\begin{pmatrix} 0 &amp; -1 \\ 1 &amp; 0\end{pmatrix}\)</span></td>
+<tr>
+<td style="text-align:left;">
+P^(-1) = 1/det(P) * P’, on P’ =
+</td>
+<td style="text-align:left;">
+<span class="math display">\[\begin{pmatrix}
+     1 &amp; 0 \\ 
+     0 &amp; 1
+\end{pmatrix}\]</span>
+</td>
 </tr>
-<tr class="odd">
-<td align="left"></td>
-<td align="left"><span class="math inline">\(\det(P) = 1\)</span></td>
+<tr>
+<td style="text-align:left;">
+P^(-1) =
+</td>
+<td style="text-align:left;">
+<span class="math display">\[\begin{pmatrix}
+     1 &amp; 0 \\ 
+     0 &amp; 1
+\end{pmatrix}\]</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+det(P) =
+</td>
+<td style="text-align:left;">
+1
+</td>
 </tr>
 </tbody>
 </table>
 <pre class="r"><code>A = matrix(c(0, -1, 2, 3), nrow = 2)
-diagonalitza(A)</code></pre>
+mostra.diagonalitzacio(A)</code></pre>
 <table>
-<colgroup>
-<col width="2%"></col>
-<col width="97%"></col>
-</colgroup>
 <thead>
-<tr class="header">
-<th align="left"></th>
-<th align="left">Descomposició diagonal</th>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:left;">
+</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
-<td align="left"></td>
-<td align="left"><span class="math inline">\(\text{Matriu} = \begin{pmatrix} 0 &amp; -1 \\ 2 &amp; 3\end{pmatrix}\)</span></td>
+<tr>
+<td style="text-align:left;">
+Matriu =
+</td>
+<td style="text-align:left;">
+<span class="math display">\[\begin{pmatrix}
+     0 &amp; 2 \\ 
+     -1 &amp; 3
+\end{pmatrix}\]</span>
+</td>
 </tr>
-<tr class="even">
-<td align="left"></td>
-<td align="left"><span class="math inline">\(D = \begin{pmatrix} 2 &amp; 0 \\ 0 &amp; 1\end{pmatrix}\)</span></td>
+<tr>
+<td style="text-align:left;">
+D =
+</td>
+<td style="text-align:left;">
+<span class="math display">\[\begin{pmatrix}
+     1 &amp; 0 \\ 
+     0 &amp; 2
+\end{pmatrix}\]</span>
+</td>
 </tr>
-<tr class="odd">
-<td align="left"></td>
-<td align="left"><span class="math inline">\(P = \begin{pmatrix} -1.58 &amp; -1.58 \\ -2 &amp; -1\end{pmatrix}\)</span></td>
+<tr>
+<td style="text-align:left;">
+P =
+</td>
+<td style="text-align:left;">
+<span class="math display">\[\begin{pmatrix}
+     2 &amp; 1 \\ 
+     1 &amp; 1
+\end{pmatrix}\]</span>
+</td>
 </tr>
-<tr class="even">
-<td align="left"></td>
-<td align="left"><span class="math inline">\(P^{-1} = \frac{1}{det(P)} \cdot P&#39;, \text{ on } P&#39;=\begin{pmatrix} 1 &amp; -1.58 \\ -2 &amp; 1.58\end{pmatrix}\)</span></td>
+<tr>
+<td style="text-align:left;">
+P^(-1) = 1/det(P) * P’, on P’ =
+</td>
+<td style="text-align:left;">
+<span class="math display">\[\begin{pmatrix}
+     1 &amp; -1 \\ 
+     -1 &amp; 2
+\end{pmatrix}\]</span>
+</td>
 </tr>
-<tr class="odd">
-<td align="left"></td>
-<td align="left"><span class="math inline">\(\det(P) = 1.58\)</span></td>
+<tr>
+<td style="text-align:left;">
+P^(-1) =
+</td>
+<td style="text-align:left;">
+<span class="math display">\[\begin{pmatrix}
+     1 &amp; -1 \\ 
+     -1 &amp; 2
+\end{pmatrix}\]</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+det(P) =
+</td>
+<td style="text-align:left;">
+1
+</td>
 </tr>
 </tbody>
 </table>
@@ -604,44 +741,159 @@ diagonalitza(A)</code></pre>
 <div id="exercici-22" class="section level2">
 <h2>Exercici 22</h2>
 <pre class="r"><code>A = matrix(c(3, 1, -1, 1), nrow = 2)
-diagonalitza(A)</code></pre>
+mostra.diagonalitzacio(A)</code></pre>
 <table>
-<colgroup>
-<col width="2%"></col>
-<col width="97%"></col>
-</colgroup>
 <thead>
-<tr class="header">
-<th align="left"></th>
-<th align="left">Descomposició diagonal</th>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:left;">
+</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
-<td align="left"></td>
-<td align="left"><span class="math inline">\(\text{Matriu} = \begin{pmatrix} 3 &amp; 1 \\ -1 &amp; 1\end{pmatrix}\)</span></td>
+<tr>
+<td style="text-align:left;">
+Matriu =
+</td>
+<td style="text-align:left;">
+<span class="math display">\[\begin{pmatrix}
+     3 &amp; -1 \\ 
+     1 &amp; 1
+\end{pmatrix}\]</span>
+</td>
 </tr>
-<tr class="even">
-<td align="left"></td>
-<td align="left"><span class="math inline">\(E = \begin{pmatrix} 2 &amp; 0 \\ 1 &amp; 2\end{pmatrix}\)</span></td>
+<tr>
+<td style="text-align:left;">
+E =
+</td>
+<td style="text-align:left;">
+<span class="math display">\[\begin{pmatrix}
+     2 &amp; 0 \\ 
+     1 &amp; 2
+\end{pmatrix}\]</span>
+</td>
 </tr>
-<tr class="odd">
-<td align="left"></td>
-<td align="left"><span class="math inline">\(P = \begin{pmatrix} 1 &amp; 1 \\ 1 &amp; 0\end{pmatrix}\)</span></td>
+<tr>
+<td style="text-align:left;">
+P =
+</td>
+<td style="text-align:left;">
+<span class="math display">\[\begin{pmatrix}
+     1 &amp; 1 \\ 
+     0 &amp; 1
+\end{pmatrix}\]</span>
+</td>
 </tr>
-<tr class="even">
-<td align="left"></td>
-<td align="left"><span class="math inline">\(P^{-1} = \frac{1}{det(P)} \cdot P&#39;, \text{ on } P&#39;=\begin{pmatrix} 0 &amp; 1 \\ 1 &amp; -1\end{pmatrix}\)</span></td>
+<tr>
+<td style="text-align:left;">
+P^(-1) = 1/det(P) * P’, on P’ =
+</td>
+<td style="text-align:left;">
+<span class="math display">\[\begin{pmatrix}
+     1 &amp; -1 \\ 
+     0 &amp; 1
+\end{pmatrix}\]</span>
+</td>
 </tr>
-<tr class="odd">
-<td align="left"></td>
-<td align="left"><span class="math inline">\(\det(P) = 1\)</span></td>
+<tr>
+<td style="text-align:left;">
+P^(-1) =
+</td>
+<td style="text-align:left;">
+<span class="math display">\[\begin{pmatrix}
+     1 &amp; -1 \\ 
+     0 &amp; 1
+\end{pmatrix}\]</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+det(P) =
+</td>
+<td style="text-align:left;">
+1
+</td>
 </tr>
 </tbody>
 </table>
 <pre class="r"><code>B = matrix(c(0, 1, -1, 0), nrow = 2)
-diagonalitza(B)</code></pre>
-<pre><code>## Error in diagonalitza(B): No s&#39;ha pogut calcular la forma normal d&#39;aquesta matriu (A != PDP^{-1})</code></pre>
+mostra.diagonalitzacio(B)</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:left;">
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Matriu =
+</td>
+<td style="text-align:left;">
+<span class="math display">\[\begin{pmatrix}
+     0 &amp; -1 \\ 
+     1 &amp; 0
+\end{pmatrix}\]</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+D =
+</td>
+<td style="text-align:left;">
+<span class="math display">\[\begin{pmatrix}
+     -i &amp; 0 \\ 
+     0 &amp; i
+\end{pmatrix}\]</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+P =
+</td>
+<td style="text-align:left;">
+<span class="math display">\[\begin{pmatrix}
+     1 &amp; 1 \\ 
+     i &amp; -i
+\end{pmatrix}\]</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+P^(-1) = 1/det(P) * P’, on P’ =
+</td>
+<td style="text-align:left;">
+<span class="math display">\[\begin{pmatrix}
+     -i &amp; -1 \\ 
+     -i &amp; 1
+\end{pmatrix}\]</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+P^(-1) =
+</td>
+<td style="text-align:left;">
+<span class="math display">\[\begin{pmatrix}
+     0.5 &amp; -0.5i \\ 
+     0.5 &amp; 0.5i
+\end{pmatrix}\]</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+det(P) =
+</td>
+<td style="text-align:left;">
+0-2i
+</td>
+</tr>
+</tbody>
+</table>
 </div>
 <div id="exemple-24" class="section level2">
 <h2>Exemple 24</h2>
@@ -650,7 +902,7 @@ A %*% A</code></pre>
 <pre><code>##      [,1] [,2]
 ## [1,]  100    0
 ## [2,]   20  100</code></pre>
-<p>AVÍS PER NAVEGANTS: L’operador `^’ és l’exponenciació entre nombres, i en el cas de matrius faria l’exponencial element a element.</p>
+<p>AVÍS PER NAVEGANTS: L’operador <code>^</code> és l’exponenciació entre nombres, i en el cas de matrius faria l’exponencial element a element.</p>
 <p>Podem calcular <span class="math inline">\(A^5\)</span> com:</p>
 <pre class="r"><code>A %*% A %*% A %*% A %*% A</code></pre>
 <pre><code>##       [,1]  [,2]
@@ -671,38 +923,79 @@ eigen(A)</code></pre>
 ## [2,] -0.7071068 0.7071068</code></pre>
 <p>Observem que els dos vectors propis són linealment dependents: R no ha trobat dos vectors propis linealment independents perquè aquesta matriu no és diagonalitzable.</p>
 <p>Per veure-ho, utilitzarem la funció que ens dona la diagonalització:</p>
-<pre class="r"><code>diagonalitza(A)</code></pre>
+<pre class="r"><code>mostra.diagonalitzacio(A)</code></pre>
 <table>
-<colgroup>
-<col width="2%"></col>
-<col width="97%"></col>
-</colgroup>
 <thead>
-<tr class="header">
-<th align="left"></th>
-<th align="left">Descomposició diagonal</th>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:left;">
+</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
-<td align="left"></td>
-<td align="left"><span class="math inline">\(\text{Matriu} = \begin{pmatrix} -3 &amp; -1 \\ 1 &amp; -1\end{pmatrix}\)</span></td>
+<tr>
+<td style="text-align:left;">
+Matriu =
+</td>
+<td style="text-align:left;">
+<span class="math display">\[\begin{pmatrix}
+     -3 &amp; 1 \\ 
+     -1 &amp; -1
+\end{pmatrix}\]</span>
+</td>
 </tr>
-<tr class="even">
-<td align="left"></td>
-<td align="left"><span class="math inline">\(E = \begin{pmatrix} -2 &amp; 0 \\ 1 &amp; -2\end{pmatrix}\)</span></td>
+<tr>
+<td style="text-align:left;">
+E =
+</td>
+<td style="text-align:left;">
+<span class="math display">\[\begin{pmatrix}
+     -2 &amp; 0 \\ 
+     1 &amp; -2
+\end{pmatrix}\]</span>
+</td>
 </tr>
-<tr class="odd">
-<td align="left"></td>
-<td align="left"><span class="math inline">\(P = \begin{pmatrix} -1 &amp; -1 \\ 1 &amp; 0\end{pmatrix}\)</span></td>
+<tr>
+<td style="text-align:left;">
+P =
+</td>
+<td style="text-align:left;">
+<span class="math display">\[\begin{pmatrix}
+     1 &amp; -1 \\ 
+     0 &amp; -1
+\end{pmatrix}\]</span>
+</td>
 </tr>
-<tr class="even">
-<td align="left"></td>
-<td align="left"><span class="math inline">\(P^{-1} = \frac{1}{det(P)} \cdot P&#39;, \text{ on } P&#39;=\begin{pmatrix} 0 &amp; 1 \\ -1 &amp; -1\end{pmatrix}\)</span></td>
+<tr>
+<td style="text-align:left;">
+P^(-1) = 1/det(P) * P’, on P’ =
+</td>
+<td style="text-align:left;">
+<span class="math display">\[\begin{pmatrix}
+     -1 &amp; 1 \\ 
+     0 &amp; 1
+\end{pmatrix}\]</span>
+</td>
 </tr>
-<tr class="odd">
-<td align="left"></td>
-<td align="left"><span class="math inline">\(\det(P) = 1\)</span></td>
+<tr>
+<td style="text-align:left;">
+P^(-1) =
+</td>
+<td style="text-align:left;">
+<span class="math display">\[\begin{pmatrix}
+     1 &amp; -1 \\ 
+     0 &amp; -1
+\end{pmatrix}\]</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+det(P) =
+</td>
+<td style="text-align:left;">
+-1
+</td>
 </tr>
 </tbody>
 </table>
@@ -710,38 +1003,79 @@ eigen(A)</code></pre>
 <div id="exercici-26" class="section level2">
 <h2>Exercici 26</h2>
 <pre class="r"><code>A = matrix(c(13, 25, -4, -7), nrow=2)
-diagonalitza(A)</code></pre>
+mostra.diagonalitzacio(A)</code></pre>
 <table>
-<colgroup>
-<col width="2%"></col>
-<col width="97%"></col>
-</colgroup>
 <thead>
-<tr class="header">
-<th align="left"></th>
-<th align="left">Descomposició diagonal</th>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:left;">
+</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
-<td align="left"></td>
-<td align="left"><span class="math inline">\(\text{Matriu} = \begin{pmatrix} 13 &amp; 25 \\ -4 &amp; -7\end{pmatrix}\)</span></td>
+<tr>
+<td style="text-align:left;">
+Matriu =
+</td>
+<td style="text-align:left;">
+<span class="math display">\[\begin{pmatrix}
+     13 &amp; -4 \\ 
+     25 &amp; -7
+\end{pmatrix}\]</span>
+</td>
 </tr>
-<tr class="even">
-<td align="left"></td>
-<td align="left"><span class="math inline">\(E = \begin{pmatrix} 3 &amp; 0 \\ 1 &amp; 3\end{pmatrix}\)</span></td>
+<tr>
+<td style="text-align:left;">
+E =
+</td>
+<td style="text-align:left;">
+<span class="math display">\[\begin{pmatrix}
+     3 &amp; 0 \\ 
+     1 &amp; 3
+\end{pmatrix}\]</span>
+</td>
 </tr>
-<tr class="odd">
-<td align="left"></td>
-<td align="left"><span class="math inline">\(P = \begin{pmatrix} 1 &amp; 2.5 \\ 0.1 &amp; 0\end{pmatrix}\)</span></td>
+<tr>
+<td style="text-align:left;">
+P =
+</td>
+<td style="text-align:left;">
+<span class="math display">\[\begin{pmatrix}
+     1 &amp; 10 \\ 
+     0 &amp; 25
+\end{pmatrix}\]</span>
+</td>
 </tr>
-<tr class="even">
-<td align="left"></td>
-<td align="left"><span class="math inline">\(P^{-1} = \frac{1}{det(P)} \cdot P&#39;, \text{ on } P&#39;=\begin{pmatrix} 0 &amp; 2.5 \\ 0.1 &amp; -1\end{pmatrix}\)</span></td>
+<tr>
+<td style="text-align:left;">
+P^(-1) = 1/det(P) * P’, on P’ =
+</td>
+<td style="text-align:left;">
+<span class="math display">\[\begin{pmatrix}
+     25 &amp; -10 \\ 
+     0 &amp; 1
+\end{pmatrix}\]</span>
+</td>
 </tr>
-<tr class="odd">
-<td align="left"></td>
-<td align="left"><span class="math inline">\(\det(P) = 0.25\)</span></td>
+<tr>
+<td style="text-align:left;">
+P^(-1) =
+</td>
+<td style="text-align:left;">
+<span class="math display">\[\begin{pmatrix}
+     1 &amp; -0.4 \\ 
+     0 &amp; 0.04
+\end{pmatrix}\]</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+det(P) =
+</td>
+<td style="text-align:left;">
+25
+</td>
 </tr>
 </tbody>
 </table>
