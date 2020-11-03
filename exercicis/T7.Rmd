@@ -40,29 +40,57 @@ Pinv %*% v0
 ```{r}
 vector_intermedi = Pinv %*% v0
 P[1,1] * vector_intermedi[1]
-P[2,2] * vector_intermedi[2]
+P[1,2] * vector_intermedi[2]
 ```
 
+* Apartat a)
 
+Observem els primers valors de la successió:
+
+```{r}
+Fibonacci = function(n) {P[1,1] * vector_intermedi[1] * D[1, 1]^n + P[1,2] * vector_intermedi[2] * D[2, 2]^n}
+Fibonacci(0:10)
+```
+
+De fet, R introdueix petits errors de càlcul, així que arrodonirem el resultat:
+
+```{r}
+round(Fibonacci(0:10))
+```
+
+Podem visualitzar gràficament com canvia aquesta població:
+
+```{r}
+n=0:20
+plot(n, Fibonacci(n), xlab="Dies", ylab="Conills")
+```
 
 * Apartat b)
 
+Plantejam la fita per al terme dominant:
+
 ```{r}
 fita = 100000
-k_decimals = log10(fita/1.17)/log10(1.62)
-k_real = ceiling(n_decimals) 
+k_decimals = log10(fita/0.72)/log10(1.62)
+k_real = ceiling(k_decimals) 
 k_real
 ```
 
-Ho resolem ara per $F_n$:
+I ho resolem ara per $F_n$:
 
 ```{r}
-F_n = function(n) {P[1,1] * vector_intermedi[1] * D[1, 1]^n + P[2,2] * vector_intermedi[2] * D[2, 2]^n}
-F_n(23)
-F_n(24)
-F_n(25)
+Fibonacci(24)
+Fibonacci(25)
+Fibonacci(26)
 ```
 
 
+
+## Exercici infeccioses:
+
+```{r}
+A = matrix(c(0, -0.27, 1, 1.05), nrow=2, ncol=2)
+mostra.diagonalitzacio(A)
+```
 
 
