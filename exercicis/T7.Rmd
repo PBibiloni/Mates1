@@ -1,0 +1,68 @@
+---
+title: "T7 - Exercicis de les diapositives"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+if(!"devtools" %in% rownames(installed.packages())) {install.packages("devtools")}
+try(detach("package:UIB20100", unload=TRUE), silent=TRUE)
+v = '2020.4.0.8'; url = sprintf("https://github.com/PBibiloni/Mates1/raw/master/pkg/libt_%s.tar.gz", v)
+devtools::install_url(url, upgrade="never", quiet=TRUE)
+library(UIB20100)
+library(knitr)
+knitr::opts_chunk$set(echo=TRUE, error=TRUE)
+```
+
+
+
+## Exemple 8
+
+* Trobar expressió de $F_n$:
+
+```{r}
+A = matrix(c(0, 1, 1, 1), ncol=2)
+mostra.diagonalitzacio(A)
+```
+
+
+Calculem matricialment:
+
+```{r}
+descomposicio = diagonalitza(A)
+D = descomposicio$D
+P = descomposicio$P
+Pinv = solve(P)
+v0 = matrix(c(1, 1), ncol=1)
+
+Pinv %*% v0
+```
+
+```{r}
+vector_intermedi = Pinv %*% v0
+P[1,1] * vector_intermedi[1]
+P[2,2] * vector_intermedi[2]
+```
+
+
+
+* Apartat b)
+
+```{r}
+fita = 100000
+k_decimals = log10(fita/1.17)/log10(1.62)
+k_real = ceiling(n_decimals) 
+k_real
+```
+
+Ho resolem ara per $F_n$:
+
+```{r}
+F_n = function(n) {P[1,1] * vector_intermedi[1] * D[1, 1]^n + P[2,2] * vector_intermedi[2] * D[2, 2]^n}
+F_n(23)
+F_n(24)
+F_n(25)
+```
+
+
+
+
