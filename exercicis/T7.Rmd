@@ -86,7 +86,30 @@ Fibonacci(26)
 
 
 
-## Exercici infeccioses:
+## Exercici 13:
+
+Podem calcular els valors propis amb R, diagonalitzant la matriu associada:
+
+```{r}
+A = matrix(c(0, 0, 0, 1, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0), nrow=4, ncol=4)
+mostra.diagonalitzacio(A)
+```
+
+
+Curiosament, ens apareix una expressió complexa, que depén del nombre imaginar $i$... però tots els valors són reals.
+
+```{r}
+x_n = function(n) {3/2 * 1^n + (-1/2) * (-1)^n + (-1/2 + 1i/2) * 1i^n + (-1/2 - 1i/2) * (-1i)^n}; 
+x_n(0:16)
+```
+
+Trobes alguna relació entre aquesta expressió i la fórmula de de Moivre?
+
+
+
+## Exercici 14:
+
+Podem calcular els valors propis amb R, diagonalitzant la matriu associada:
 
 ```{r}
 A = matrix(c(0, -0.27, 1, 1.05), nrow=2, ncol=2)
