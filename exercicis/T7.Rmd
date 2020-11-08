@@ -1,0 +1,119 @@
+---
+title: "T7 - Exercicis de les diapositives"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+if(!"devtools" %in% rownames(installed.packages())) {install.packages("devtools")}
+try(detach("package:UIB20100", unload=TRUE), silent=TRUE)
+v = '2020.4.0.8'; url = sprintf("https://github.com/PBibiloni/Mates1/raw/master/pkg/libt_%s.tar.gz", v)
+devtools::install_url(url, upgrade="never", quiet=TRUE)
+library(UIB20100)
+library(knitr)
+knitr::opts_chunk$set(echo=TRUE, error=TRUE)
+```
+
+
+
+## Exemple 8
+
+* Trobar expressió de $F_n$:
+
+```{r}
+A = matrix(c(0, 1, 1, 1), ncol=2)
+mostra.diagonalitzacio(A)
+```
+
+
+Calculem matricialment:
+
+```{r}
+descomposicio = diagonalitza(A)
+D = descomposicio$D
+P = descomposicio$P
+Pinv = solve(P)
+v0 = matrix(c(1, 1), ncol=1)
+
+Pinv %*% v0
+```
+
+```{r}
+vector_intermedi = Pinv %*% v0
+P[1,1] * vector_intermedi[1]
+P[1,2] * vector_intermedi[2]
+```
+
+* Apartat a)
+
+Observem els primers valors de la successió:
+
+```{r}
+Fibonacci = function(n) {P[1,1] * vector_intermedi[1] * D[1, 1]^n + P[1,2] * vector_intermedi[2] * D[2, 2]^n}
+Fibonacci(0:10)
+```
+
+De fet, R introdueix petits errors de càlcul, així que arrodonirem el resultat:
+
+```{r}
+round(Fibonacci(0:10))
+```
+
+Podem visualitzar gràficament com canvia aquesta població:
+
+```{r}
+n=0:20
+plot(n, Fibonacci(n), xlab="Dies", ylab="Conills")
+```
+
+* Apartat b)
+
+Plantejam la fita per al terme dominant:
+
+```{r}
+fita = 100000
+k_decimals = log10(fita/0.72)/log10(1.62)
+k_real = ceiling(k_decimals) 
+k_real
+```
+
+I ho resolem ara per $F_n$:
+
+```{r}
+Fibonacci(24)
+Fibonacci(25)
+Fibonacci(26)
+```
+
+
+
+## Exercici 13:
+
+Podem calcular els valors propis amb R, diagonalitzant la matriu associada:
+
+```{r}
+A = matrix(c(0, 0, 0, 1, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0), nrow=4, ncol=4)
+mostra.diagonalitzacio(A)
+```
+
+
+Curiosament, ens apareix una expressió complexa, que depén del nombre imaginar $i$... però tots els valors són reals.
+
+```{r}
+x_n = function(n) {3/2 * 1^n + (-1/2) * (-1)^n + (-1/2 + 1i/2) * 1i^n + (-1/2 - 1i/2) * (-1i)^n}; 
+x_n(0:16)
+```
+
+Trobes alguna relació entre aquesta expressió i la fórmula de de Moivre?
+
+
+
+## Exercici 14:
+
+Podem calcular els valors propis amb R, diagonalitzant la matriu associada:
+
+```{r}
+A = matrix(c(0, -0.27, 1, 1.05), nrow=2, ncol=2)
+mostra.diagonalitzacio(A)
+```
+
+
