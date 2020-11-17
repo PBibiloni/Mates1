@@ -86,7 +86,18 @@ Fibonacci(26)
 
 
 
-## Exercici 13:
+
+## Exemple 10:
+
+```{r}
+A = matrix(c(1, -1, 1, 1, 2, 4, 0, 2, 8), ncol=3)
+b = matrix(c(9, 9, 9), ncol=1)
+solve(A) %*% b
+```
+
+
+
+## Exercici 14:
 
 Podem calcular els valors propis amb R, diagonalitzant la matriu associada:
 
@@ -107,7 +118,7 @@ Trobes alguna relació entre aquesta expressió i la fórmula de de Moivre?
 
 
 
-## Exercici 14:
+## Exercici 15:
 
 Podem calcular els valors propis amb R, diagonalitzant la matriu associada:
 
